@@ -1,0 +1,70 @@
+@startuml
+left to right direction
+actor Employee as E
+actor Chef as C
+actor Admin as A
+actor RecommendationEngine as RE
+actor NotificationQueue as NQ
+
+rectangle FoodMenu {
+    usecase "Access/Read Food Menu" as UC1
+    usecase "Update Food Menu" as UC2
+    usecase "Receive Notification" as UC3
+    usecase "Read Food Details" as UC4
+    usecase "Read Food Reviews/Rating" as UC5
+    usecase "Add Users" as UC6
+    usecase "View Reviews/Rating" as UC7
+    usecase "Give Rating to Food" as UC8
+    usecase "Give Review to Food" as UC9
+    usecase "Cast Vote on Rollout Menu" as UC10
+    usecase "Send Notification Read Receipts" as UC11
+    usecase "Create and Send Notification" as UC12
+    usecase "Send Finalized Food Menu Notification" as UC13
+    usecase "Manage Notification Read Receipts" as UC14
+    usecase "Notify User on Food Menu Update" as UC15
+    usecase "Access/Read Review/Rating" as UC16
+    usecase "Access/Read Rollout Menu Votes" as UC17
+    usecase "Generate Recommendation" as UC18
+    usecase "Send Recommendation to Chef" as UC19
+    usecase "Get Recommended Food List" as UC20
+    usecase "Create Rollout Menu" as UC21
+    usecase "Send Rollout Menu to Notification Queue" as UC22
+    usecase "Get Response for Voting Stats" as UC23
+    usecase "Send Finalized Food to DB and Notification Queue" as UC24
+}
+
+E -down-> UC1
+E -down-> UC8
+E -down-> UC9
+E -down-> UC3
+E -down-> UC10
+E -down-> UC4
+E -down-> UC5
+E -down-> UC11
+
+A -down-> UC2
+A -down-> UC6
+A -down-> UC7
+
+UC12 -down-> NQ
+UC13 -down-> NQ
+UC14 -down-> NQ
+UC15 -down-> NQ
+
+UC1 -down-> RE
+UC4 -down-> RE
+UC16 -down-> RE
+UC17 -down-> RE
+UC18 -down-> RE
+UC19 -down-> RE
+
+C -down-> UC1
+C -down-> UC4
+C -down-> UC16
+C -down-> UC20
+C -down-> UC21
+C -down-> UC22
+C -down-> UC23
+C -down-> UC24
+
+@enduml

@@ -1,3 +1,5 @@
+#pragma once
+
 enum class RequestType {
     USER_LOGIN,
     ADD_USER,

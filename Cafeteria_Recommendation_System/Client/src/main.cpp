@@ -1,13 +1,26 @@
 #include <iostream>
 
+#include "Controller/UserController.h"
 #include "View/AdminView.h"
 #include "Controller/SocketController.h"
 
 int main()
 {
+    UserController userController;
     AdminView adminView;
-    adminView.adminLoginPage();
 
+    std::cout << "Welcome to Cafeteria. please login" << std::endl;
+
+    std::string username;
+    std::string password;
+
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    std::vector<std::string> userData = {username, password};
+    
 
  
     return 0;

@@ -1,4 +1,5 @@
-#include "AdminView.h"
+#include "View/AdminView.h"
+#include "Model/RequestType.h"
 
 void AdminView::adminLoginPage() {
     std::string username;
@@ -32,33 +33,19 @@ void AdminView::adminLandingPage() {
     std::cout << "Enter your choice: ";
 
     int choice;
+    RequestType requestType;
     std::cout << "Enter choice: ";   
     std::cin >> choice;
+    std::string sendBuffer;
 
-    switch(choice) {
-        case 1:
-            this->addFoodItem();
-            break;
-        case 2:
-            this->removeFoodItem();
-            break;
-    //     case 3:
-    //         this->updateFoodItem();
-    //         break;
-        case 4:
-            this->viewAllFoodItems();
-    //         break;
-    //     case 5:
-    //         break; // TODO: Implement this
-    //     case 6:
-    //         exit(0);  // FIXME: change this to logout.
-    }
+    
+
 }
 
 
 
 void AdminView::addFoodItem() {
-    FoodItemDTO foodItemDTO;
+    
 
     std::cout << "Enter food name: ";
     std::cin >> foodItemDTO.food_name;
@@ -79,16 +66,16 @@ void AdminView::viewAllFoodItems() {
     }
 }
 
-void AdminView::removeFoodItem() {
-    int foodId;
-    this->viewAllFoodItems();
-    std::cout << "Enter food id to be removed: ";
-    std::cin >> foodId;
-    this->adminController.removeFoodItem(foodId);
+// void AdminView::removeFoodItem() {
+//     int foodId;
+//     this->viewAllFoodItems();
+//     std::cout << "Enter food id to be removed: ";
+//     std::cin >> foodId;
+//     this->adminController.removeFoodItem(foodId);
 
-    if (this->adminController.removeFoodItem(foodId)) {
-        std::cout << "Food item removed successfully" << std::endl;
-    } else {
-        std::cout << "Failed to remove food item" << std::endl;
-    }
-}
+//     if (this->adminController.removeFoodItem(foodId)) {
+//         std::cout << "Food item removed successfully" << std::endl;
+//     } else {
+//         std::cout << "Failed to remove food item" << std::endl;
+//     }
+// }

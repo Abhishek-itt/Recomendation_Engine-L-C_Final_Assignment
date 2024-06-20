@@ -1,43 +1,46 @@
-# Compiler
+# Compiler and flags
 CXX = g++
+CXXFLAGS = -std=c++11 -Wall -Iinc
+LDFLAGS = -lmysqlcppconn
 
 # Directories
 SRC_DIR = src
 INC_DIR = inc
-TEST_DIR = Test
+OBJ_DIR = obj
 
 # Source files
-SRC_FILES = $(wildcard $(SRC_DIR)/**/*.cpp) $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/**/**/*.cpp) $(wildcard $(SRC_DIR)/**/**/**/*.cpp) $(wildcard Common/src/*.cpp) $(wildcard Common/src/**/*.cpp)
-TEST_FILES = $(wildcard $(TEST_DIR)/*.cpp)
+SRC_FILES = \
+	$(SRC_DIR)/Controller/CRUDController.cpp \
+	$(SRC_DIR)/Controller/UserController.cpp \
+	$(SRC_DIR)/DBAccessor/FoodFeedbackDAO.cpp \
+	$(SRC_DIR)/DBAccessor/FoodItemDAO.cpp \
+	$(SRC_DIR)/DBAccessor/MySQL/MySqlDBAccess.cpp \
+	$(SRC_DIR)/DBAccessor/UsersDAO.cpp \
+	$(SRC_DIR)/RequestHandler/ClientRequestHandler.cpp \
+	$(SRC_DIR)/RequestHandler/SocketServer.cpp \
+	$(SRC_DIR)/Utils/Serializar.cpp \
+	$(SRC_DIR)/main.cpp
 
-# Object files
-OBJ_FILES = $(SRC_FILES:.cpp=.o)
-TEST_OBJ_FILES = $(TEST_FILES:.cpp=.o)
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
-# Include directories
-INC_FLAGS = -I$(INC_DIR) -I$(INC_DIR)/Application -I$(INC_DIR)/Business -I$(INC_DIR)/DataAccess -I$(INC_DIR)/DataAccess/Database -I$(INC_DIR)/DatatAccess/Database/MySql -I$(INC_DIR)/Presentation -ICommon/inc
+# Target executable
+TARGET = server
 
-# Libraries
-LIBS = -lmysqlcppconn
+# Default target
+all: $(TARGET)
 
-# Output files
-SERVER_OUTPUT = $(TEST_DIR)/server
+# Link the target executable
+$(TARGET): $(OBJS)
+	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
 
-# Flags
-CXXFLAGS = -std=c++17 -Wall
-
-all: $(SERVER_OUTPUT)
-
-# Compile server
-$(SERVER_OUTPUT): $(SRC_FILES)
-	$(CXX) $(CXXFLAGS) $(INC_FLAGS) -o $@ $^ $(LIBS)
-
-# Pattern rule for compiling source files
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(INC_FLAGS) -c $< -o $@
+# Compile source files to object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up build files
 clean:
-	rm -f $(SRC_DIR)/**/*.o $(SRC_DIR)/*.o $(SERVER_OUTPUT)
+	rm -rf $(OBJ_DIR) $(TARGET)
 
+# Phony targets
 .PHONY: all clean

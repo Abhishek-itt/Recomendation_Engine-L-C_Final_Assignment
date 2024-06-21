@@ -17,9 +17,9 @@ public:
     bool addFoodItem(std::vector<std::string> foodItemData);
     bool removeFoodItem(unsigned int foodId);
     std::string getFoodItem(unsigned int foodId);
-    std::vector<std::string> getFoodItemList();
+    std::string getFoodItemList();
 
     bool addUser(std::vector<std::string> userData);
 
-    
+    void logout();
 };

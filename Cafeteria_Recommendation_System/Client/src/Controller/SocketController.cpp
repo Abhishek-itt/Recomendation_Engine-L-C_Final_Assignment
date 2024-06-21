@@ -38,6 +38,7 @@ void ClientSocketController::connectToServer() {
 
 // Send message
 void ClientSocketController::sendMessage(std::string message) {
+    std::cout << "Sending message: " << message << std::endl;
     send(clientSocket, message.c_str(), message.size(), 0);
 }
 
@@ -45,6 +46,5 @@ void ClientSocketController::sendMessage(std::string message) {
 std::string ClientSocketController::receiveMessage() {
     char buffer[1024] = {0};
     recv(clientSocket, buffer, 1024, 0);
-    std::cout << "Bytes read: " << buffer << std::endl;
     return std::string(buffer);
 }

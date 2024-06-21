@@ -9,4 +9,5 @@ enum class RequestType {
     GET_FOOD_ITEMS,
     ADD_FOOD_FEEDBACK,
     GET_FEEDBACKS_FOR_FOOD,
+    LOGOUT,
 };

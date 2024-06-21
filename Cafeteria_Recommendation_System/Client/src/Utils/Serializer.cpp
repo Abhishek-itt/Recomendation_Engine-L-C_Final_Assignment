@@ -3,8 +3,9 @@
 std::vector<std::string> Utils::lineDeserializer(std::string data) {
     std::vector<std::string> result;
     std::string temp;
+    std::cout << data.size() << strlen(data.c_str()) << std::endl;  
     for (int i = 0; i < data.size(); i++) {
-        if (data[i] == '\n\n') {
+        if (data[i] == '\n' && data[i + 1] == '\n') {
             result.push_back(temp);
             temp = "";
         } else {
@@ -16,6 +17,10 @@ std::vector<std::string> Utils::lineDeserializer(std::string data) {
 
 std::vector<std::string> Utils::wordDeserializer(std::string data) {
     std::vector<std::string> result;
+    data += "\n";
+    if (data.at(0) == '\n')
+        data = data.substr(1);
+
     std::string temp;
     for (int i = 0; i < data.size(); i++) {
         if (data[i] == '\n') {

@@ -1,3 +1,4 @@
+#pragma once
 #include "RequestHandler/SocketServer.h"
 
 #include "Utils/Serializar.h"

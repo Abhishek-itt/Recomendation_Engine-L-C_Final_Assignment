@@ -14,7 +14,9 @@ SRC_FILES = \
 	$(SRC_DIR)/Controller/AdminController.cpp \
 	$(SRC_DIR)/Controller/SocketController.cpp \
 	$(SRC_DIR)/Controller/UserController.cpp \
+	$(SRC_DIR)/Controller/EmployeeController.cpp \
 	$(SRC_DIR)/View/AdminView.cpp \
+	$(SRC_DIR)/View/EmployeeView.cpp \
 	$(SRC_DIR)/Utils/Serializer.cpp \
 	$(SRC_DIR)/main.cpp
 

@@ -8,18 +8,19 @@ std::string AdminController::getFoodItem(unsigned int foodId) {
     return response;
 }
 
-std::vector<std::string> AdminController::getFoodItemList() {
+std::string AdminController::getFoodItemList() {
     std::string requestString = std::to_string(static_cast<int>(RequestType::GET_FOOD_ITEMS)) + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
-    return utils.lineDeserializer(response);
+    
+    return response;
 }
 
 bool AdminController::addFoodItem(std::vector<std::string> foodItemData) {
     std::string requestString = std::to_string(static_cast<int>(RequestType::ADD_FOOD_ITEM)) + "\n" + utils.wordSerializer(foodItemData) + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
-    return response == "true";
+    return response == "success";
 }
 
 bool AdminController::removeFoodItem(unsigned int foodId) {
@@ -34,4 +35,9 @@ bool AdminController::addUser(std::vector<std::string> userData) {
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
     return response == "true";
+}
+
+void AdminController::logout() {
+    std::string requestString = "";
+    clientSocketController.sendMessage(requestString);
 }

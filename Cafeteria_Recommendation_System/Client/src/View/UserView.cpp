@@ -2,8 +2,6 @@
 
 void UserView::userLandingPage() {
     std::cout << "Welcome to Cafeteria. please login" << std::endl;
-
-
 }
 
 bool UserView::userLoginPage() {
@@ -11,9 +9,9 @@ bool UserView::userLoginPage() {
     std::string password;
 
     std::cout << "Enter username: ";
-    std::cin >> username;
+    std::getline(std::cin, username);
     std::cout << "Enter password: ";
-    std::cin >> password;
+    std::getline(std::cin, password);
 
     std::vector<std::string> userData = {username, password};
     if (this->userController.userLogin(userData)) {

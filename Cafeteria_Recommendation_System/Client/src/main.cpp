@@ -2,25 +2,42 @@
 
 #include "Controller/UserController.h"
 #include "View/AdminView.h"
+#include "View/EmployeeView.h"
 #include "Controller/SocketController.h"
 
 int main()
 {
-    UserController userController;
+    UserController* userController = new UserController();
     AdminView adminView;
+    EmployeeView employeeView;
+
 
     std::cout << "Welcome to Cafeteria. please login" << std::endl;
 
     std::string username;
-    std::string password;
+    std::string employeeId;
+    std::string userType;
 
     std::cout << "Enter username: ";
     std::cin >> username;
-    std::cout << "Enter password: ";
-    std::cin >> password;
+    std::cout << "Enter Employee ID: ";
+    std::cin >> employeeId;
 
-    std::vector<std::string> userData = {username, password};
-    
+    userType = userController->userLogin(username, employeeId);
+
+    if (userType == "Admin") {
+        delete userController;
+        adminView.adminLandingPage();
+    } else if (userType == "Employee") {
+        employeeView.employeeLandingPage();
+    } else if (userType == "Chef") {
+        // chefView.chefLandingPage();
+    } else {
+        std::cout << "Invalid user" << std::endl;
+    }
+
+
+
 
  
     return 0;

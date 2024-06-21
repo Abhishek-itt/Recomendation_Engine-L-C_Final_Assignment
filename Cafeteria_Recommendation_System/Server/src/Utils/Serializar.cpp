@@ -37,6 +37,7 @@ std::vector<std::string> Serializer::split(std::string data) {
 std::string Serializer::serialize(std::vector<std::string> data) {
     std::string result;
     for (int i = 0; i < data.size(); i++) {
+        std::cout << data[i] << std::endl;
         result += data[i] + "\n";
     }
     return result;

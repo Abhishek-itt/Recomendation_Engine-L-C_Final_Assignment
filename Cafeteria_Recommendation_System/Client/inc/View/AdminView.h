@@ -6,7 +6,7 @@
 #include "Model/FoodItemDTO.h"
 
 #include "Utils/Serializer.h"   
-
+#include "Utils/RequestTypes.h"
 
 class AdminView {
     AdminController adminController;
@@ -19,6 +19,8 @@ public:
     void viewFoodItem();
 
 
+
+    void logout();
     void addUser();
 };
 

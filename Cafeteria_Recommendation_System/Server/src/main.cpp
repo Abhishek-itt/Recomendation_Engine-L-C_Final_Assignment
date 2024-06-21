@@ -20,7 +20,7 @@ int main() {
             }
             if(request == "")
             {
-                exit(1);
+                break;
             }
             ClientRequestHandler handler;
             std::string response = handler.HandleRequest(request);

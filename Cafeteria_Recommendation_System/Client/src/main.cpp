@@ -3,13 +3,12 @@
 #include "Controller/UserController.h"
 #include "View/AdminView.h"
 #include "View/EmployeeView.h"
+#include "View/ChefView.h"
 #include "Controller/SocketController.h"
 
 int main()
 {
     UserController* userController = new UserController();
-    AdminView adminView;
-    EmployeeView employeeView;
 
 
     std::cout << "Welcome to Cafeteria. please login" << std::endl;
@@ -27,11 +26,16 @@ int main()
 
     if (userType == "Admin") {
         delete userController;
+        AdminView adminView;    
         adminView.adminLandingPage();
     } else if (userType == "Employee") {
+        delete userController;
+        EmployeeView employeeView;
         employeeView.employeeLandingPage();
     } else if (userType == "Chef") {
-        // chefView.chefLandingPage();
+        delete userController;
+        ChefView chefView;
+        chefView.chefLandingPage();
     } else {
         std::cout << "Invalid user" << std::endl;
     }

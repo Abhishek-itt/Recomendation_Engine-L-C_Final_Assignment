@@ -6,6 +6,7 @@ void AdminView::adminLandingPage() {
     std::cout << "2. Add Food Item" << std::endl;
     std::cout << "3. Remove Food Item" << std::endl;
     std::cout << "5. View All Food Items" << std::endl;
+    std::cout << "1. Add User" << std::endl;
     std::cout << "8. Logout" << std::endl;
     std::cout << "Enter your choice: ";
 
@@ -24,6 +25,9 @@ void AdminView::adminLandingPage() {
             break;
         case RequestType::GET_FOOD_ITEMS:
             this->viewAllFoodItems();
+            break;
+        case RequestType::ADD_USER:
+            this->addUser();
             break;
         case RequestType::LOGOUT:
             this->logout();
@@ -100,6 +104,8 @@ void AdminView::viewFoodItem() {
 }
 
 void AdminView::addUser() {
+    std::cin.ignore();
+    std::cin.clear();
     std::string firstName;
     std::string lastName;
     std::string username;

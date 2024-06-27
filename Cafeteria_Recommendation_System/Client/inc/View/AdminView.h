@@ -3,7 +3,6 @@
 #include <string>
 
 #include "Controller/AdminController.h"
-#include "Model/FoodItemDTO.h"
 
 #include "Utils/Serializer.h"   
 #include "Utils/RequestTypes.h"
@@ -17,8 +16,6 @@ public:
     void removeFoodItem();
     void viewAllFoodItems();
     void viewFoodItem();
-
-
 
     void logout();
     void addUser();

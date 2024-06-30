@@ -9,7 +9,7 @@
 
 const std::string HOST = "localhost";
 const std::string USER = "abhishek";
-const std::string PASSWORD = "ITTAbhi@7684";
+const std::string PASSWORD = "Abhi@#7684";
 const std::string DATABASE = "cafetarea";
 
 class MySqlDBAccess{
@@ -21,6 +21,8 @@ public:
 
     bool executeQuery(std::string query);
     bool executeUpdate(std::string query);
+
+    bool execute(std::string query);
 
     std::vector<std::vector<std::string>> fetchData(std::string query);
 

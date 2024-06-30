@@ -14,8 +14,6 @@ private:
 
 public:
     bool addRolloutVoting(RolloutVotingDTO rolloutVotingDTO);
-    RolloutVotingDTO getRolloutVoting(unsigned int rolloutVotingId);
-    std::vector<RolloutVotingDTO> getRolloutVotings(unsigned int dailyRolloutId);
-    std::vector<RolloutVotingDTO> getRolloutVotings(std::string userName);
-    std::vector<RolloutVotingDTO> getRolloutVotings(unsigned int dailyRolloutId, std::string userName);
+    RolloutVotingDTO getRolloutVoting(unsigned int votingId);
+    std::vector<RolloutVotingDTO> getRolloutVotings(unsigned int rolloutId);
 };

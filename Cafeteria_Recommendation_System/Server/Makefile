@@ -24,6 +24,7 @@ SRC_FILES = \
 	$(SRC_DIR)/DBAccessor/RolloutMenuDAO.cpp \
 	$(SRC_DIR)/DBAccessor/RolloutVotingDAO.cpp \
 	$(SRC_DIR)/DBAccessor/UsersDAO.cpp \
+	$(SRC_DIR)/RecommendationEngine/RecommendationEngine.cpp \
 	$(SRC_DIR)/RequestHandler/ClientRequestHandler.cpp \
 	$(SRC_DIR)/RequestHandler/SocketServer.cpp \
 	$(SRC_DIR)/Utils/Serializar.cpp \

@@ -15,4 +15,6 @@ private:
 public:
     bool voteOnRollout(unsigned int rolloutId, std::string userName);
     int getVoteCount(unsigned int rolloutId);
+
+    unsigned int getVoteCountForFoodItem(unsigned int foodId);
 };

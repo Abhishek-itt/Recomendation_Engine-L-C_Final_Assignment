@@ -15,4 +15,6 @@ private:
 public:
     MealMenuDTO getMealMenu(std::string date, std::string mealType);
     bool addMealMenu(MealMenuDTO mealMenu);
+
+    unsigned int getMealMenuCount(unsigned int foodId);
 };

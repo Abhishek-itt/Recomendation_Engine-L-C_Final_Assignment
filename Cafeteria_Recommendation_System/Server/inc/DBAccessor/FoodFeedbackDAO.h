@@ -18,4 +18,7 @@ public:
     std::vector<FoodFeedbackDTO> getFoodFeedbacks(unsigned int foodId);
     std::vector<FoodFeedbackDTO> getFoodFeedbacks(std::string userName);
     std::vector<FoodFeedbackDTO> getFoodFeedbacks(unsigned int foodId, std::string userName);
+
+    float getAverageTasteRating(unsigned int foodId);
+    float getAverageQualityRating(unsigned int foodId);
 }; 

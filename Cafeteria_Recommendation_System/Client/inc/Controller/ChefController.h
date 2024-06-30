@@ -15,5 +15,9 @@ class ChefController
 public:
     std::string getFoodItemList();
     std::string getFoodItem(unsigned int foodId);
+    std::string getRecommendationList();
+    bool rolloutMealMenu(std::string date, std::string mealType, unsigned int foodId);
+    std::string getVotesOnRollout(std::string date, std::string mealType);
+    bool rolloutMeal(std::string date, std::string mealType, unsigned int foodId);
     void logout();
 };

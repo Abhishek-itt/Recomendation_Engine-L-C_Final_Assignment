@@ -20,3 +20,10 @@ bool MealMenuDAO::addMealMenu(MealMenuDTO mealMenu)
     std::string query = "INSERT INTO meal_menu (date, meal_type, food_id) VALUES ('" + mealMenu.date + "', '" + mealMenu.mealType + "', " + std::to_string(mealMenu.foodId) + ")";
     return mySqlDBAccess.executeQuery(query);
 }
+
+unsigned int MealMenuDAO::getMealMenuCount(unsigned int foodId)
+{
+    std::string query = "SELECT COUNT(*) FROM meal_menu WHERE food_id = " + std::to_string(foodId);
+    std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
+    return std::stoi(result[0][0]);
+}

@@ -22,3 +22,10 @@ bool RolloutMenuDAO::addRollout(RolloutMenuDTO rollout)
     std::string query = "INSERT INTO rollout_menu (date, meal_type, food_id) VALUES ('" + rollout.date + "', '" + rollout.mealType + "', " + std::to_string(rollout.foodId) + ")";
     return mySqlDBAccess.executeQuery(query);
 }
+
+unsigned int RolloutMenuDAO::getRolloutCount(unsigned int foodId)
+{
+    std::string query = "SELECT COUNT(*) FROM rollout_menu WHERE food_id = " + std::to_string(foodId);
+    std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
+    return std::stoi(result[0][0]);
+}

@@ -1,18 +1,16 @@
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <vector>
 
-#include "DBAccessor/MySQL/MySqlDBAccess.h"
 #include "DTO/RolloutVotingDTO.h"
+#include "DBAccessor/RolloutVotingDAO.h"
 
-class RolloutVotingDAO
-{
-private:
-    MySqlDBAccess mySqlDBAccess;
-
+class VotingController {
 public:
     bool voteOnRollout(unsigned int rolloutId, std::string userName);
     int getVoteCount(unsigned int rolloutId);
+
+private:
+    RolloutVotingDAO rolloutVotingDAO;
 };

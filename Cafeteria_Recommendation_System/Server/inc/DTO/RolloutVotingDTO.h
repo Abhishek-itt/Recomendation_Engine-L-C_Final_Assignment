@@ -4,7 +4,7 @@
 
 class RolloutVotingDTO {
 public:
-    unsigned int voting_id;
-    unsigned int rollout_id;
-    std::string user_name;
+    unsigned int votingId;
+    unsigned int rolloutId;
+    std::string userName;
 };

@@ -1,49 +1,22 @@
 #include "DBAccessor/MealMenuDAO.h"
 
-bool MealMenuDAO::addMealMenu(MealMenuDTO mealMenuDTO)
+MealMenuDTO MealMenuDAO::getMealMenu(std::string date, std::string mealType)
 {
-    std::string query = "INSERT INTO meal_menu (food_id, date, meal_type) VALUES (";
-    query += std::to_string(mealMenuDTO.foodId) + ", '" + mealMenuDTO.date + "', '" + mealMenuDTO.mealType + "');";
-
-    return mySqlDBAccess.execute(query);
-}
-
-MealMenuDTO MealMenuDAO::getMealMenu(unsigned int mealMenuId)
-{
-    std::string query = "SELECT * FROM meal_menu WHERE meal_menu_id = " + std::to_string(mealMenuId) + ";";
-
+    std::string query = "SELECT * FROM meal_menu WHERE date = '" + date + "' AND meal_type = '" + mealType + "'";
     std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
 
-    MealMenuDTO mealMenuDTO;
+    MealMenuDTO mealMenu;
     if (result.size() > 0)
     {
-        mealMenuDTO.mealMenuId = std::stoi(result[0][0]);
-        mealMenuDTO.foodId = std::stoi(result[0][1]);
-        mealMenuDTO.date = result[0][2];
-        mealMenuDTO.mealType = result[0][3];
+        mealMenu.date = result[0][0];
+        mealMenu.mealType = result[0][1];
+        mealMenu.foodId = std::stoi(result[0][2]);
     }
-
-    return mealMenuDTO;
+    return mealMenu;
 }
 
-std::vector<MealMenuDTO> MealMenuDAO::getMealMenus(unsigned int foodId)
+bool MealMenuDAO::addMealMenu(MealMenuDTO mealMenu)
 {
-    std::string query = "SELECT * FROM meal_menu WHERE food_id = " + std::to_string(foodId) + ";";
-
-    std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
-
-    std::vector<MealMenuDTO> mealMenus;
-    for (int i = 0; i < result.size(); i++)
-    {
-        MealMenuDTO mealMenuDTO;
-        mealMenuDTO.mealMenuId = std::stoi(result[i][0]);
-        mealMenuDTO.foodId = std::stoi(result[i][1]);
-        mealMenuDTO.date = result[i][2];
-        mealMenuDTO.mealType = result[i][3];
-
-        mealMenus.push_back(mealMenuDTO);
-    }
-
-    return mealMenus;
+    std::string query = "INSERT INTO meal_menu (date, meal_type, food_id) VALUES ('" + mealMenu.date + "', '" + mealMenu.mealType + "', " + std::to_string(mealMenu.foodId) + ")";
+    return mySqlDBAccess.executeQuery(query);
 }
-

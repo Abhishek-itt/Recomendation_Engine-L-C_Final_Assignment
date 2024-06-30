@@ -11,10 +11,18 @@ OBJ_DIR = obj
 # Source files
 SRC_FILES = \
 	$(SRC_DIR)/Controller/CRUDController.cpp \
+	$(SRC_DIR)/Controller/MealMenuController.cpp \
+	$(SRC_DIR)/Controller/MealMenuResponseController.cpp \
+	$(SRC_DIR)/Controller/RolloutController.cpp \
 	$(SRC_DIR)/Controller/UserController.cpp \
+	$(SRC_DIR)/Controller/VotingController.cpp \
 	$(SRC_DIR)/DBAccessor/FoodFeedbackDAO.cpp \
 	$(SRC_DIR)/DBAccessor/FoodItemDAO.cpp \
+	$(SRC_DIR)/DBAccessor/MealMenuDAO.cpp \
+	$(SRC_DIR)/DBAccessor/MealMenuResponseDAO.cpp \
 	$(SRC_DIR)/DBAccessor/MySQL/MySqlDBAccess.cpp \
+	$(SRC_DIR)/DBAccessor/RolloutMenuDAO.cpp \
+	$(SRC_DIR)/DBAccessor/RolloutVotingDAO.cpp \
 	$(SRC_DIR)/DBAccessor/UsersDAO.cpp \
 	$(SRC_DIR)/RequestHandler/ClientRequestHandler.cpp \
 	$(SRC_DIR)/RequestHandler/SocketServer.cpp \

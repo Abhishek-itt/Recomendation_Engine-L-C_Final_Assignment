@@ -13,7 +13,6 @@ private:
     MySqlDBAccess mySqlDBAccess;
 
 public:
-    bool addMealMenu(MealMenuDTO mealMenuDTO);
-    MealMenuDTO getMealMenu(unsigned int mealMenuId);
-    std::vector<MealMenuDTO> getMealMenus(unsigned int foodId);
+    MealMenuDTO getMealMenu(std::string date, std::string mealType);
+    bool addMealMenu(MealMenuDTO mealMenu);
 };

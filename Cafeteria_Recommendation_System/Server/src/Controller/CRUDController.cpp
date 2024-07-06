@@ -77,3 +77,12 @@ std::vector<std::string> CRUDController::getFoodFeedbacks(int foodId)
 
     return foodFeedbacks;
 } 
+
+std::vector<std::string> CRUDController::getRecommendationList(int count) {
+    std::vector<std::string> recommendationList;
+    for (FoodItemDTO foodItem : recommendationEngine.getRecommendedFoodItems(count))
+    {
+        recommendationList.push_back(foodItem.Deserializer());
+    }
+    return recommendationList;
+}

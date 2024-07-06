@@ -1,11 +1,11 @@
 #include "RecommendationEngine/RecommendationEngine.h"
 
 float RecommendationScoreCalculator::calculateRecommendationScore(unsigned int foodId) {
-    avgTasteRating = getAverageTasteRating();
-    avgQualityRating = getAverageQualityRating();
-    avgVoteCount = getVoteCount();
-    totalRollout = getRolloutCount();
-    totalMealCount = getMealMenuCount();
+    avgTasteRating = getAverageTasteRating(foodId);
+    avgQualityRating = getAverageQualityRating(foodId);
+    avgVoteCount = getVoteCount(foodId);
+    totalRollout = getRolloutCount(foodId);
+    totalMealCount = getMealMenuCount(foodId);
 
     float tasteScore = avgTasteRating * 0.4;
     float qualityScore = avgQualityRating * 0.3;
@@ -16,23 +16,23 @@ float RecommendationScoreCalculator::calculateRecommendationScore(unsigned int f
     return tasteScore + qualityScore + voteScore + rolloutScore + mealScore;
 }
 
-float RecommendationScoreCalculator::getAverageTasteRating() {
+float RecommendationScoreCalculator::getAverageTasteRating(unsigned int foodId) {
     return foodFeedbackDAO.getAverageTasteRating(foodId);
 }
 
-float RecommendationScoreCalculator::getAverageQualityRating() {
+float RecommendationScoreCalculator::getAverageQualityRating(unsigned int foodId) {
     return foodFeedbackDAO.getAverageQualityRating(foodId);
 }
 
-float RecommendationScoreCalculator::getVoteCount() {
+float RecommendationScoreCalculator::getVoteCount(unsigned int foodId) {
     return rolloutVotingDAO.getVoteCountForFoodItem(foodId);
 }
 
-float RecommendationScoreCalculator::getRolloutCount() {
+float RecommendationScoreCalculator::getRolloutCount(unsigned int foodId) {
     return rolloutMenuDAO.getRolloutCount(foodId);
 }
 
-float RecommendationScoreCalculator::getMealMenuCount() {
+float RecommendationScoreCalculator::getMealMenuCount(unsigned int foodId) {
     return mealMenuDAO.getMealMenuCount(foodId);
 }
 
@@ -43,7 +43,10 @@ void RecommendationEngine::getFoodItems() {
 void RecommendationEngine::calculateRecommendationScores() {
     for (auto foodItem : foodItems) {
         RecommendationScoreCalculator recommendationScoreCalculator;
+        std::cout << "Food ID: " << foodItem.food_id << std::endl;
+        std::cout << "Food Name: " << foodItem.food_name << std::endl;
         float recommendationScore = recommendationScoreCalculator.calculateRecommendationScore(foodItem.food_id);
+        std::cout << "Recommendation Score: " << recommendationScore << std::endl;
         recommendationScores.push_back(std::make_pair(foodItem.food_id, recommendationScore));
     }
 }

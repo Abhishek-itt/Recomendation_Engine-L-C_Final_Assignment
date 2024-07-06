@@ -2,8 +2,8 @@
 
 
 ClientSocketController::ClientSocketController() {
-    this->ipAddress = "127.0.0.1";
-    this->port = 8080;
+    this->ipAddress = IP_ADDRESS;
+    this->port = PORT;
     createSocket();
     connectToServer();
 }

@@ -16,5 +16,6 @@ public:
     
     void viewAllFoodItems();
     void viewFoodItem();
+    void getRecommendedList();
     
 };

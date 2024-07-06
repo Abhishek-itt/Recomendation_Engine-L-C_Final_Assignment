@@ -31,7 +31,6 @@ public:
     float calculateRecommendationScore(unsigned int foodId);
 
 private:
-    unsigned int foodId;
 
     FoodFeedbackDAO foodFeedbackDAO;
     RolloutMenuDAO rolloutMenuDAO;
@@ -44,10 +43,10 @@ private:
     float totalRollout;
     float totalMealCount;
 
-    float getAverageTasteRating();
-    float getAverageQualityRating();
-    float getVoteCount();
-    float getRolloutCount();
-    float getMealMenuCount();
+    float getAverageTasteRating(unsigned int foodId);
+    float getAverageQualityRating(unsigned int foodId);
+    float getVoteCount(unsigned int foodId);
+    float getRolloutCount(unsigned int foodId);
+    float getMealMenuCount(unsigned int foodId);
 
 }; 

@@ -9,7 +9,7 @@
 
 const std::string HOST = "localhost";
 const std::string USER = "abhishek";
-const std::string PASSWORD = "Abhi@#7684";
+const std::string PASSWORD = "ITTAbhi@7684";
 const std::string DATABASE = "cafetarea";
 
 class MySqlDBAccess{

@@ -3,7 +3,7 @@
 MealMenuResponseDTO MealMenuResponseDAO::getMealMenuResponse(unsigned int mealMenuId, std::string userName)
 {
     MealMenuResponseDTO mealMenuResponse;
-    std::string query = "SELECT * FROM MealMenuResponse WHERE mealMenuId = " + std::to_string(mealMenuId) + " AND userName = '" + userName + "'";
+    std::string query = "SELECT * FROM Meal_Menu_Response WHERE meal_menu_id = " + std::to_string(mealMenuId) + " AND userName = '" + userName + "'";
     std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
 
     if (result.size() > 0)
@@ -19,7 +19,7 @@ MealMenuResponseDTO MealMenuResponseDAO::getMealMenuResponse(unsigned int mealMe
 std::vector<MealMenuResponseDTO> MealMenuResponseDAO::getMealMenuResponses(unsigned int mealMenuId)
 {
     std::vector<MealMenuResponseDTO> mealMenuResponses;
-    std::string query = "SELECT * FROM MealMenuResponse WHERE mealMenuId = " + std::to_string(mealMenuId);
+    std::string query = "SELECT * FROM Meal_Menu_Response WHERE meal_menu_id = " + std::to_string(mealMenuId);
     std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
 
     for (std::vector<std::string> row : result)
@@ -35,7 +35,7 @@ std::vector<MealMenuResponseDTO> MealMenuResponseDAO::getMealMenuResponses(unsig
 
 bool MealMenuResponseDAO::addMealMenuResponse(MealMenuResponseDTO mealMenuResponse)
 {
-    std::string query = "INSERT INTO MealMenuResponse (mealMenuId, userName, response) VALUES ("
+    std::string query = "INSERT INTO Meal_Menu_Response (meal_menu_id, user_name, response) VALUES ("
                         + std::to_string(mealMenuResponse.mealMenuId) + ", '"
                         + mealMenuResponse.userName + "', '"
                         + mealMenuResponse.response + "')";

@@ -89,8 +89,11 @@ std::vector<FoodFeedbackDTO> FoodFeedbackDAO::getFoodFeedbacks(unsigned int food
 float FoodFeedbackDAO::getAverageTasteRating(unsigned int foodId)
 {
     std::string query = "SELECT AVG(taste_rating) FROM Food_Feedback WHERE food_id = " + std::to_string(foodId);
+    std::cout << "Query: " << query << "\n";
     std::vector<std::vector<std::string>> data = mySqlDBAccess.fetchData(query);
-    if (data.size() == 0)
+    std::cout << "Data: " << data[0][0] << "\n";
+
+    if (data.empty() || data[0].empty() || data[0][0] == "")
     {
         return 0;
     }
@@ -100,11 +103,12 @@ float FoodFeedbackDAO::getAverageTasteRating(unsigned int foodId)
 float FoodFeedbackDAO::getAverageQualityRating(unsigned int foodId)
 {
     std::string query = "SELECT AVG(quality_rating) FROM Food_Feedback WHERE food_id = " + std::to_string(foodId);
+    std::cout << "Query: " << query << "\n";
     std::vector<std::vector<std::string>> data = mySqlDBAccess.fetchData(query);
-    if (data.size() == 0)
+    std::cout << "Data: " << data[0][0] << "\n";
+    if (data.empty() || data[0].empty() || data[0][0] == "")
     {
         return 0;
     }
     return std::stof(data[0][0]);
 }
-

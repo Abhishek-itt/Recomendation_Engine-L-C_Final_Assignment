@@ -15,8 +15,8 @@ std::string ChefController::getFoodItem(unsigned int foodId) {
     return response;
 }
 
-std::string ChefController::getRecommendationList() {
-    std::string requestString = std::to_string(static_cast<int>(RequestType::GET_RECOMMENDATION_LIST)) + "\n";
+std::string ChefController::getRecommendationList(int count) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::GET_RECOMMENDATION_LIST)) + "\n" + std::to_string(count) + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
     return response;

@@ -10,6 +10,8 @@
 #include "DBAccessor/FoodItemDAO.h"
 #include "DBAccessor/FoodFeedbackDAO.h"
 
+#include "RecommendationEngine/RecommendationEngine.h"
+
 class CRUDController {
 public:
     bool addFoodItem(std::vector<std::string> foodItemData);
@@ -20,8 +22,12 @@ public:
 
     bool addFoodFeedback(std::vector<std::string> foodFeedbackData);
     std::vector<std::string> getFoodFeedbacks(int foodId);
+
+    std::vector<std::string> getRecommendationList(int count);
+
     
 private:
     FoodItemDAO foodItemDAO;
     FoodFeedbackDAO foodFeedbackDAO;
+    RecommendationEngine recommendationEngine;
 };

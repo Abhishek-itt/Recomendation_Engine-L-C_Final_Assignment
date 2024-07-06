@@ -59,6 +59,9 @@ std::string ClientRequestHandler::HandleRequest(std::string requestBuffer) {
 
         case RequestType::GET_FEEDBACKS_FOR_FOOD:
             return serializer.serialize(crudController.getFoodFeedbacks(std::stoi(bufferMessage)));
+
+        case RequestType::GET_RECOMMENDATION_LIST:
+            return serializer.serialize(crudController.getRecommendationList(std::stoi(bufferMessage)));
         default:
             return "FAILED";
     }

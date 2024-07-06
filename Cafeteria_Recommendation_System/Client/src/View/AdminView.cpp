@@ -1,22 +1,26 @@
 #include "View/AdminView.h"
 #include "Utils/RequestTypes.h"
 
-void AdminView::adminLandingPage() {
-    std::cout << "Admin Home" << std::endl;
-    std::cout << "2. Add Food Item" << std::endl;
-    std::cout << "3. Remove Food Item" << std::endl;
-    std::cout << "5. View All Food Items" << std::endl;
-    std::cout << "1. Add User" << std::endl;
-    std::cout << "8. Logout" << std::endl;
-    std::cout << "Enter your choice: ";
+void AdminView::adminLandingPage()
+{
+    while (true)
+    {
+        std::cout << "Admin Home" << std::endl;
+        std::cout << "2. Add Food Item" << std::endl;
+        std::cout << "3. Remove Food Item" << std::endl;
+        std::cout << "5. View All Food Items" << std::endl;
+        std::cout << "1. Add User" << std::endl;
+        std::cout << "8. Logout" << std::endl;
+        std::cout << "Enter your choice: ";
 
-    RequestType requestType;
-    int choice;
-    std::cout << "Enter choice: ";
-    std::cin >> choice;
-    requestType = static_cast<RequestType>(choice);
+        RequestType requestType;
+        int choice;
+        std::cout << "Enter choice: ";
+        std::cin >> choice;
+        requestType = static_cast<RequestType>(choice);
 
-    switch (requestType) {
+        switch (requestType)
+        {
         case RequestType::ADD_FOOD_ITEM:
             this->addFoodItem();
             break;
@@ -31,14 +35,17 @@ void AdminView::adminLandingPage() {
             break;
         case RequestType::LOGOUT:
             this->logout();
+            exit(0);
             break;
         default:
             std::cout << "Invalid choice" << std::endl;
             break;
+        }
     }
 }
 
-void AdminView::addFoodItem() {
+void AdminView::addFoodItem()
+{
     std::string foodName;
     int price;
     int isAvailable;
@@ -54,28 +61,36 @@ void AdminView::addFoodItem() {
     std::getline(std::cin, description);
 
     std::vector<std::string> foodItemData = {foodName, std::to_string(price), std::to_string(isAvailable), description};
-    if (this->adminController.addFoodItem(foodItemData)) {
+    if (this->adminController.addFoodItem(foodItemData))
+    {
         std::cout << "Food item added successfully" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Failed to add food item" << std::endl;
     }
 }
 
-void AdminView::removeFoodItem() {
+void AdminView::removeFoodItem()
+{
     int foodId;
     this->viewAllFoodItems();
     std::cout << "Enter food id to be removed: ";
     std::cin >> foodId;
     this->adminController.removeFoodItem(foodId);
 
-    if (this->adminController.removeFoodItem(foodId)) {
+    if (this->adminController.removeFoodItem(foodId))
+    {
         std::cout << "Food item removed successfully" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Failed to remove food item" << std::endl;
     }
 }
 
-void AdminView::viewAllFoodItems() {
+void AdminView::viewAllFoodItems()
+{
     std::string foodItems = this->adminController.getFoodItemList();
 
     std::vector<std::string> foodItemsData = utils.lineDeserializer(foodItems);
@@ -83,13 +98,15 @@ void AdminView::viewAllFoodItems() {
     std::cout << "Food Id\tFood Name\tPrice\tAvailability\tDescription" << std::endl;
 
     // Print table rows
-    for (std::string foodItem : foodItemsData) {
+    for (std::string foodItem : foodItemsData)
+    {
         std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
         std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
     }
 }
 
-void AdminView::viewFoodItem() {
+void AdminView::viewFoodItem()
+{
     unsigned int foodId;
     std::cout << "Enter food id: ";
     std::cin >> foodId;
@@ -103,7 +120,8 @@ void AdminView::viewFoodItem() {
     std::cout << "Description: " << foodItemData[4] << std::endl;
 }
 
-void AdminView::addUser() {
+void AdminView::addUser()
+{
     std::cin.ignore();
     std::cin.clear();
     std::string firstName;
@@ -124,14 +142,18 @@ void AdminView::addUser() {
     std::getline(std::cin, employeeId);
 
     std::vector<std::string> userData = {username, role, employeeId, firstName, lastName};
-    if (this->adminController.addUser(userData)) {
+    if (this->adminController.addUser(userData))
+    {
         std::cout << "User added successfully" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Failed to add user" << std::endl;
     }
 }
 
-void AdminView::logout() {
+void AdminView::logout()
+{
     std::cout << "Logging out" << std::endl;
     this->adminController.logout();
 }

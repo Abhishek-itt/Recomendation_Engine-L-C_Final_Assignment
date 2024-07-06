@@ -1,35 +1,47 @@
 #include "View/ChefView.h"
 
-void ChefView::chefLandingPage() {
-    std::cout << "Chef Home" << std::endl;
-    std::cout << "5. View All Food Items" << std::endl;
-    std::cout << "6. View Food Item" << std::endl;
-    std::cout << "8. Logout" << std::endl;
-    std::cout << "Enter your choice: ";
+void ChefView::chefLandingPage()
+{
+    while (true)
+    {
+        std::cout << "Chef Home" << std::endl;
+        std::cout << "5. View All Food Items" << std::endl;
+        std::cout << "6. View Food Item" << std::endl;
+        std::cout << "8. get recommended list." << std::endl;    
+        std::cout << "16. Logout" << std::endl;
 
-    RequestType requestType;
-    int choice;
-    std::cout << "Enter choice: ";
-    std::cin >> choice;
-    requestType = static_cast<RequestType>(choice);
+        std::cout << "Enter your choice: ";
 
-    switch (requestType) {
+        RequestType requestType;
+        int choice;
+        std::cout << "Enter choice: ";
+        std::cin >> choice;
+        requestType = static_cast<RequestType>(choice);
+
+        switch (requestType)
+        {
         case RequestType::GET_FOOD_ITEMS:
             this->viewAllFoodItems();
             break;
         case RequestType::GET_FOOD_ITEM:
             this->viewFoodItem();
             break;
+        case RequestType::GET_RECOMMENDATION_LIST:
+            this->getRecommendedList();
+            break;
         case RequestType::LOGOUT:
             this->logout();
             break;
         default:
             std::cout << "Invalid choice" << std::endl;
+            exit(0);
             break;
+        }
     }
 }
 
-void ChefView::viewAllFoodItems() {
+void ChefView::viewAllFoodItems()
+{
     std::string foodItems = this->chefController.getFoodItemList();
     std::cout << foodItems << std::endl;
 
@@ -38,13 +50,15 @@ void ChefView::viewAllFoodItems() {
     std::cout << "Food Id\tFood Name\tPrice\tAvailability\tDescription" << std::endl;
 
     // Print table rows
-    for (std::string foodItem : foodItemsData) {
+    for (std::string foodItem : foodItemsData)
+    {
         std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
         std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
     }
 }
 
-void ChefView::viewFoodItem() {
+void ChefView::viewFoodItem()
+{
     unsigned int foodId;
     std::cout << "Enter food id: ";
     std::cin >> foodId;
@@ -59,7 +73,17 @@ void ChefView::viewFoodItem() {
     std::cout << "Description: " << foodItemData[4] << std::endl;
 }
 
-void ChefView::logout() {
+void ChefView::getRecommendedList()
+{
+    int count;
+    std::cout << "Enter number of recommended items: ";
+    std::cin >> count;
+    std::string recommendedList = chefController.getRecommendationList(count);
+    std::cout << recommendedList << std::endl;
+}
+
+void ChefView::logout()
+{
     std::cout << "Logging out" << std::endl;
     this->chefController.logout();
 }

@@ -2,15 +2,13 @@
 
 MealMenuDTO MealMenuDAO::getMealMenu(std::string date, std::string mealType)
 {
-    std::string query = "SELECT * FROM Meal_Menu WHERE date = '" + date + "' AND meal_type = '" + mealType + "'";
+    std::string query = "SELECT food_id FROM Meal_Menu WHERE date = '" + date + "' AND meal_type = '" + mealType + "'";
     std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
 
     MealMenuDTO mealMenu;
     if (result.size() > 0)
     {
-        mealMenu.date = result[0][0];
-        mealMenu.mealType = result[0][1];
-        mealMenu.foodId = std::stoi(result[0][2]);
+        mealMenu.foodId = std::stoi(result[0][0]);
     }
     return mealMenu;
 }

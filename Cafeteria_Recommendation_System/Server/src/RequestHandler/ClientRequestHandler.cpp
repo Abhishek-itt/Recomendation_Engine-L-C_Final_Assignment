@@ -96,6 +96,10 @@ std::string ClientRequestHandler::HandleRequest(std::string requestBuffer) {
             else
                 return "failed";
 
+        case RequestType::GET_MEAL_MENU:
+            bufferMessages = serializer.split(bufferMessage);
+            return mealMenuController.getMealMenu(bufferMessages[0], bufferMessages[1]);
+
         case RequestType::GET_VOTES_ON_ROLLOUT:
             bufferMessages = serializer.split(bufferMessage);
             std::cout << bufferMessages[0] << " " << bufferMessages[1] << std::endl;

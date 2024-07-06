@@ -16,7 +16,8 @@ void EmployeeView::employeeLandingPage()
         std::cout << "4. View food feedback" << std::endl;
         std::cout << "5. Get Rollout Menu" << std::endl;
         std::cout << "6. Vote on Rollout Menu" << std::endl;
-        std::cout << "7. Logout" << std::endl;
+        std::cout << "7. View Meal Menu" << std::endl;
+        std::cout << "8. Logout" << std::endl;
 
         int choice;
         std::cout << "Enter choice: ";
@@ -43,6 +44,9 @@ void EmployeeView::employeeLandingPage()
             voteOnRolloutMenu();
             break;
         case 7:
+            veiwMealMenu();
+            break;
+        case 8:
             logout();
             exit(0);
             break;
@@ -171,6 +175,23 @@ void EmployeeView::voteOnRolloutMenu()
     {
         std::cout << "Failed to vote" << std::endl;
     }
+}
+
+void EmployeeView::veiwMealMenu()
+{
+    std::string date;
+    std::string mealType;
+
+    std::cout << "Enter date: ";
+    std::cin >> date;
+    std::cout << "Enter meal type: ";
+    std::cin >> mealType;
+
+    std::string response = employeeController.getMealMenu(date, mealType);
+    std::string foodDetails = employeeController.getFoodItem(std::stoi(response));
+    std::vector<std::string> foodItemData = utils.wordDeserializer(foodDetails);
+
+    std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
 }
 
 void EmployeeView::logout()

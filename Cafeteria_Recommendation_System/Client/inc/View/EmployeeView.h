@@ -18,6 +18,7 @@ public:
     void viewFoodFeedback();
     void viewRolloutMenu();
     void voteOnRolloutMenu();
+    void veiwMealMenu();
     void logout();
 
 private:

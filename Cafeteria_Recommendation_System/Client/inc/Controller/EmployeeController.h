@@ -17,7 +17,8 @@ public:
     std::string getFeedback(unsigned int foodId);
 
     std::string getRolloutMenu(std::string date, std::string mealType);
-    bool voteOnRollout(unsigned int rolloutId);
+    unsigned int getFoodId(unsigned int rolloutId);
+    bool voteOnRollout(unsigned int rolloutId, std::string username);
 
     std::string getMealMenu(std::string date, std::string mealType);
 

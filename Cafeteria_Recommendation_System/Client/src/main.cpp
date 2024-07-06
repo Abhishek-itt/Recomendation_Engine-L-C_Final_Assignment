@@ -30,7 +30,7 @@ int main()
         adminView.adminLandingPage();
     } else if (userType == "Employee") {
         delete userController;
-        EmployeeView employeeView;
+        EmployeeView employeeView(username);
         employeeView.employeeLandingPage();
     } else if (userType == "Chef") {
         delete userController;

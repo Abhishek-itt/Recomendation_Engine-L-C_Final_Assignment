@@ -4,6 +4,7 @@ std::vector<RolloutMenuDTO> RolloutMenuDAO::getRollout(std::string date, std::st
 {
     std::vector<RolloutMenuDTO> rolloutMenuList;
     std::string query = "SELECT * FROM Rollout_Menu WHERE date = '" + date + "' AND meal_type = '" + mealType + "'";
+    std::cout << "Query: " << query << std::endl;
     std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
     for (std::vector<std::string> row : result)
     {
@@ -20,7 +21,18 @@ std::vector<RolloutMenuDTO> RolloutMenuDAO::getRollout(std::string date, std::st
 bool RolloutMenuDAO::addRollout(RolloutMenuDTO rollout)
 {
     std::string query = "INSERT INTO Rollout_Menu (date, meal_type, food_id) VALUES ('" + rollout.date + "', '" + rollout.mealType + "', " + std::to_string(rollout.foodId) + ")";
+    std::cout << "Query: " << query << std::endl;
     return mySqlDBAccess.executeQuery(query);
+}
+
+unsigned int RolloutMenuDAO::getFoodId(unsigned int rolloutId)
+{
+    std::string query = "SELECT food_id FROM Rollout_Menu WHERE rollout_id = " + std::to_string(rolloutId);
+    std::vector<std::vector<std::string>> result = mySqlDBAccess.fetchData(query);
+    if (result.empty() || result[0].empty()) {
+        return 0;
+    }
+    return std::stoi(result[0][0]);
 }
 
 unsigned int RolloutMenuDAO::getRolloutCount(unsigned int foodId)
@@ -32,3 +44,4 @@ unsigned int RolloutMenuDAO::getRolloutCount(unsigned int foodId)
     }
     return std::stoi(result[0][0]);
 }
+

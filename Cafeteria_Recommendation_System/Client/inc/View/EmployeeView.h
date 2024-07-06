@@ -9,14 +9,19 @@
 
 class EmployeeView {
 public:
+    EmployeeView(std::string username);
+
     void employeeLandingPage();
     void viewAllFoodItems();
     void viewFoodItem();
     void giveFeedback();
     void viewFoodFeedback();
+    void viewRolloutMenu();
+    void voteOnRolloutMenu();
     void logout();
 
 private:
+    std::string username;
     EmployeeController employeeController;
     Utils utils;
 };

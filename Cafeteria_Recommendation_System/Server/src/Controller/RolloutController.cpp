@@ -14,8 +14,13 @@ std::vector<std::string> RolloutController::getRolloutMenu(std::string date, std
     std::vector<std::string> foodList;
 
     for (RolloutMenuDTO rolloutMenu : rolloutMenuList) {
-        foodList.push_back(std::to_string(rolloutMenu.foodId));
+        foodList.push_back(std::to_string(rolloutMenu.rolloutId));
     }
 
     return foodList;
 }
+
+unsigned int RolloutController::getFoodId(unsigned int rolloutId) {
+    return rolloutMenuDAO.getFoodId(rolloutId);
+}
+

@@ -12,7 +12,8 @@ class RolloutController {
 public:
     bool addRolloutMenu(std::string date, std::string mealType, unsigned int foodId);
     std::vector<std::string> getRolloutMenu(std::string date, std::string mealType);
-
+    unsigned int getFoodId(unsigned int rolloutId);
+    
 private:
     RolloutMenuDAO rolloutMenuDAO;
 };   

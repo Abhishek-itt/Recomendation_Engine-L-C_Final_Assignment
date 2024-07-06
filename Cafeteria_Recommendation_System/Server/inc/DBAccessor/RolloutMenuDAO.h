@@ -16,5 +16,7 @@ public:
     std::vector<RolloutMenuDTO> getRollout(std::string date, std::string mealType);
     bool addRollout(RolloutMenuDTO rollout);
 
+    unsigned int getFoodId(unsigned int rolloutId);
+
     unsigned int getRolloutCount(unsigned int foodId);
 };

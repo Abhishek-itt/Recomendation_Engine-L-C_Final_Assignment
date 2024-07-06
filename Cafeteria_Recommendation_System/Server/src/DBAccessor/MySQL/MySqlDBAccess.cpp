@@ -36,10 +36,10 @@ void MySqlDBAccess::disconnect() {
 
 bool MySqlDBAccess::executeQuery(std::string query) {
     try {
-        mySqlResultSet = mySqlStatement->executeQuery(query);
+        mySqlStatement->execute(query);
         return true;
     } catch (sql::SQLException& e) {
-        std::cerr << "Error executing query: " << e.what() << std::endl;
+        std::cerr << "Error executing query:22 " << e.what() << std::endl;
         return false;
     }
 }

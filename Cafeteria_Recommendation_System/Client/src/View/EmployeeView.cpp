@@ -1,5 +1,10 @@
 #include "View/EmployeeView.h"
 
+EmployeeView::EmployeeView(std::string username)
+{
+    this->username = username;
+}
+
 void EmployeeView::employeeLandingPage()
 {
     while (true)
@@ -9,7 +14,9 @@ void EmployeeView::employeeLandingPage()
         std::cout << "2. View food item" << std::endl;
         std::cout << "3. Give feedback" << std::endl;
         std::cout << "4. View food feedback" << std::endl;
-        std::cout << "5. Logout" << std::endl;
+        std::cout << "5. Get Rollout Menu" << std::endl;
+        std::cout << "6. Vote on Rollout Menu" << std::endl;
+        std::cout << "7. Logout" << std::endl;
 
         int choice;
         std::cout << "Enter choice: ";
@@ -30,6 +37,12 @@ void EmployeeView::employeeLandingPage()
             viewFoodFeedback();
             break;
         case 5:
+            viewRolloutMenu();
+            break;
+        case 6:
+            voteOnRolloutMenu();
+            break;
+        case 7:
             logout();
             exit(0);
             break;
@@ -114,6 +127,49 @@ void EmployeeView::viewFoodFeedback()
     {
         std::vector<std::string> feedbackItem = utils.wordDeserializer(feedback);
         std::cout << feedbackItem[0] << "\t" << feedbackItem[1] << "\t" << feedbackItem[2] << "\t" << feedbackItem[3] << std::endl;
+    }
+}
+
+void EmployeeView::viewRolloutMenu()
+{
+    std::string date;
+    std::string mealType;
+
+    std::cout << "Enter date: ";
+    std::cin >> date;
+    std::cout << "Enter meal type: ";
+    std::cin >> mealType;
+
+    std::string response = employeeController.getRolloutMenu(date, mealType);
+
+    std::vector<std::string> rolloutMenuData = utils.wordDeserializer(response);
+
+    for (std::string rolloutId : rolloutMenuData)
+    {
+        std::cout << "Rollout ID: " << rolloutId << std::endl;
+        unsigned int rolloutFoodId = employeeController.getFoodId(std::stoi(rolloutId));
+        std::cout << "rollout food id " << rolloutFoodId << std::endl;
+        std::string foodDetails = employeeController.getFoodItem(rolloutFoodId);
+        std::vector<std::string> foodItemData = utils.wordDeserializer(foodDetails);
+
+        std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
+    }
+}
+
+void EmployeeView::voteOnRolloutMenu()
+{
+    unsigned int rolloutId;
+    std::cout << "Enter rollout id: ";
+    std::cin >> rolloutId;
+
+    bool success = employeeController.voteOnRollout(rolloutId, username);
+    if (success)
+    {
+        std::cout << "Voted successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to vote" << std::endl;
     }
 }
 

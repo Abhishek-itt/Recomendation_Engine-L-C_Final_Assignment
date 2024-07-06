@@ -17,5 +17,9 @@ public:
     void viewAllFoodItems();
     void viewFoodItem();
     void getRecommendedList();
+    void rolloutMealMenu();
+    void viewVotesOnRollout();
+
+    void rolloutMeal();
     
 };

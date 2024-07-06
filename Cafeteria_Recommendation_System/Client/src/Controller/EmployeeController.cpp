@@ -11,7 +11,7 @@ std::string EmployeeController::getFoodItemList() {
     std::string requestString = std::to_string(static_cast<int>(RequestType::GET_FOOD_ITEMS)) + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
-    
+
     return response;
 }
 
@@ -19,14 +19,22 @@ std::string EmployeeController::getRolloutMenu(std::string date, std::string mea
     std::string requestString = std::to_string(static_cast<int>(RequestType::GET_ROLLOUT_MEAL_MENU)) + "\n" + date + "\n" + mealType + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
+    std::cout << "rollout response: " << response << std::endl;
     return response;
 }
 
-bool EmployeeController::voteOnRollout(unsigned int rolloutId) {
-    std::string requestString = std::to_string(static_cast<int>(RequestType::VOTE_ON_ROLLOUT_MENU)) + "\n" + std::to_string(rolloutId) + "\n";
+unsigned int EmployeeController::getFoodId(unsigned int rolloutId) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::GET_FOOD_ID_FOR_ROLLOUT)) + "\n" + std::to_string(rolloutId) + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
-    return response == "true";
+    return std::stoi(response);
+}
+
+bool EmployeeController::voteOnRollout(unsigned int rolloutId, std::string username) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::VOTE_ON_ROLLOUT_MENU)) + "\n" + std::to_string(rolloutId) + "\n" + username + "\n";
+    clientSocketController.sendMessage(requestString);
+    std::string response = clientSocketController.receiveMessage();
+    return response == "success";
 }
 
 std::string EmployeeController::getMealMenu(std::string date, std::string mealType) {

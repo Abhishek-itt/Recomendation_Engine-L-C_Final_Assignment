@@ -24,7 +24,8 @@ std::vector<std::string> Utils::wordDeserializer(std::string data) {
     std::string temp;
     for (int i = 0; i < data.size(); i++) {
         if (data[i] == '\n') {
-            result.push_back(temp);
+            if (temp.size() > 0)
+                result.push_back(temp);
             temp = "";
         } else {
             temp += data[i];

@@ -1,5 +1,6 @@
 #include "View/AdminView.h"
 #include "Utils/RequestTypes.h"
+#include <limits>
 
 void AdminView::adminLandingPage()
 {
@@ -14,8 +15,15 @@ void AdminView::adminLandingPage()
         std::cout << "Enter your choice: ";
 
         int choice;
-        std::cout << "Enter choice: ";
         std::cin >> choice;
+
+        if (std::cin.fail() || choice < 1 || choice > 5)
+        {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid choice. Please enter a number between 1 and 5." << std::endl;
+            continue;
+        }
 
         switch (choice)
         {
@@ -34,9 +42,6 @@ void AdminView::adminLandingPage()
         case 5:
             this->logout();
             exit(0);
-            break;
-        default:
-            std::cout << "Invalid choice" << std::endl;
             break;
         }
     }
@@ -59,11 +64,21 @@ void AdminView::addFoodItem()
     std::getline(std::cin, food_name);
 
     std::cout << "Enter price: ";
-    std::cin >> price;
+    while (!(std::cin >> price))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid price: ";
+    }
 
     std::cout << "Enter availability (1 for available, 0 for not available): ";
     int availability;
-    std::cin >> availability;
+    while (!(std::cin >> availability) || (availability != 1 && availability != 0))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter 1 for available or 0 for not available: ";
+    }
     is_available = (availability == 1);
 
     std::cout << "Enter description: ";
@@ -98,8 +113,12 @@ void AdminView::removeFoodItem()
     int foodId;
     this->viewAllFoodItems();
     std::cout << "Enter food id to be removed: ";
-    std::cin >> foodId;
-    this->adminController.removeFoodItem(foodId);
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food id: ";
+    }
 
     if (this->adminController.removeFoodItem(foodId))
     {
@@ -120,7 +139,7 @@ void AdminView::viewAllFoodItems()
     std::cout << "Food Id\tFood Name\tPrice\tAvailability\tDescription" << std::endl;
 
     // Print table rows
-    for (std::string foodItem : foodItemsData)
+    for (const std::string& foodItem : foodItemsData)
     {
         std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
         std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
@@ -131,7 +150,12 @@ void AdminView::viewFoodItem()
 {
     unsigned int foodId;
     std::cout << "Enter food id: ";
-    std::cin >> foodId;
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food id: ";
+    }
     std::string foodItem = this->adminController.getFoodItem(foodId);
     std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
 

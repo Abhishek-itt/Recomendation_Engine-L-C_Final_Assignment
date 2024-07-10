@@ -1,4 +1,5 @@
 #include "View/EmployeeView.h"
+#include <limits>
 
 EmployeeView::EmployeeView(std::string username)
 {
@@ -26,6 +27,14 @@ void EmployeeView::employeeLandingPage()
         int choice;
         std::cout << "Enter choice: ";
         std::cin >> choice;
+
+        if (std::cin.fail() || choice < 1 || choice > 12)
+        {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid choice. Please enter a number between 1 and 12." << std::endl;
+            continue;
+        }
 
         switch (choice)
         {
@@ -81,7 +90,7 @@ void EmployeeView::viewAllFoodItems()
     std::cout << "Food Id\tFood Name\tPrice\tAvailability\tDescription" << std::endl;
 
     // Print table rows
-    for (std::string foodItem : foodItemsData)
+    for (const std::string& foodItem : foodItemsData)
     {
         std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
         std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
@@ -92,7 +101,13 @@ void EmployeeView::viewFoodItem()
 {
     unsigned int foodId;
     std::cout << "Enter food id: ";
-    std::cin >> foodId;
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food id: ";
+    }
+
     std::string foodItem = this->employeeController.getFoodItem(foodId);
     std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
 
@@ -107,21 +122,37 @@ void EmployeeView::giveFeedback()
 {
     std::cout << "Enter food ID: ";
     unsigned int foodId;
-    std::cin >> foodId;
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food ID: ";
+    }
 
-    std::cout << "Enter taste rating: ";
+    std::cout << "Enter taste rating (1-5): ";
     unsigned int tasteRating;
-    std::cin >> tasteRating;
+    while (!(std::cin >> tasteRating) || tasteRating < 1 || tasteRating > 5)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a taste rating between 1 and 5: ";
+    }
 
-    std::cout << "Enter quality rating: ";
+    std::cout << "Enter quality rating (1-5): ";
     unsigned int qualityRating;
-    std::cin >> qualityRating;
+    while (!(std::cin >> qualityRating) || qualityRating < 1 || qualityRating > 5)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a quality rating between 1 and 5: ";
+    }
 
+    std::cin.ignore(); // clear newline character left in buffer
     std::cout << "Enter review: ";
     std::string review;
     std::getline(std::cin, review);
 
-    bool success = employeeController.giveFeedback(foodId, "david_lee", tasteRating, qualityRating, review);
+    bool success = employeeController.giveFeedback(foodId, username, tasteRating, qualityRating, review);
     if (success)
     {
         std::cout << "Feedback added successfully" << std::endl;
@@ -136,14 +167,19 @@ void EmployeeView::viewFoodFeedback()
 {
     std::cout << "Enter food ID: ";
     unsigned int foodId;
-    std::cin >> foodId;
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food ID: ";
+    }
 
     std::string response = employeeController.getFeedback(foodId);
 
     std::vector<std::string> feedbackData = utils.lineDeserializer(response);
 
     std::cout << "Username\tTaste Rating\tQuality Rating\tReview" << std::endl;
-    for (std::string feedback : feedbackData)
+    for (const std::string& feedback : feedbackData)
     {
         std::vector<std::string> feedbackItem = utils.wordDeserializer(feedback);
         std::cout << feedbackItem[0] << "\t" << feedbackItem[1] << "\t" << feedbackItem[2] << "\t" << feedbackItem[3] << std::endl;
@@ -155,7 +191,7 @@ void EmployeeView::viewRolloutMenu()
     std::string date;
     std::string mealType;
 
-    std::cout << "Enter date: ";
+    std::cout << "Enter date (YYYY-MM-DD): ";
     std::cin >> date;
     std::cout << "Enter meal type: ";
     std::cin >> mealType;
@@ -164,11 +200,11 @@ void EmployeeView::viewRolloutMenu()
 
     std::vector<std::string> rolloutMenuData = utils.wordDeserializer(response);
 
-    for (std::string rolloutId : rolloutMenuData)
+    for (const std::string& rolloutId : rolloutMenuData)
     {
         std::cout << "Rollout ID: " << rolloutId << std::endl;
         unsigned int rolloutFoodId = employeeController.getFoodId(std::stoi(rolloutId));
-        std::cout << "rollout food id " << rolloutFoodId << std::endl;
+        std::cout << "Rollout food id: " << rolloutFoodId << std::endl;
         std::string foodDetails = employeeController.getFoodItem(rolloutFoodId);
         std::vector<std::string> foodItemData = utils.wordDeserializer(foodDetails);
 
@@ -180,7 +216,12 @@ void EmployeeView::voteOnRolloutMenu()
 {
     unsigned int rolloutId;
     std::cout << "Enter rollout id: ";
-    std::cin >> rolloutId;
+    while (!(std::cin >> rolloutId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid rollout id: ";
+    }
 
     bool success = employeeController.voteOnRollout(rolloutId, username);
     if (success)
@@ -198,7 +239,7 @@ void EmployeeView::viewMealMenu()
     std::string date;
     std::string mealType;
 
-    std::cout << "Enter date: ";
+    std::cout << "Enter date (YYYY-MM-DD): ";
     std::cin >> date;
     std::cout << "Enter meal type: ";
     std::cin >> mealType;
@@ -234,7 +275,7 @@ void EmployeeView::updateDietPreference()
     std::cin >> spiceLevelPreference;
     std::cout << "Enter cuisine preference: ";
     std::cin >> cuisinePreference;
-    std::cout << "Enter prefer sweet: ";
+    std::cout << "Enter prefer sweet (yes/no): ";
     std::cin >> preferSweet;
 
     bool success = employeeController.updateDietPreference(username, foodTypePreference, spiceLevelPreference, cuisinePreference, preferSweet);
@@ -255,7 +296,7 @@ void EmployeeView::getNotifications()
 
     std::cout << "Notification ID\tMessage" << std::endl;
 
-    for (std::string notification : notifications)
+    for (const std::string& notification : notifications)
     {
         std::vector<std::string> notificationData = utils.wordDeserializer(notification);
         std::cout << notificationData[0] << "\t" << notificationData[1] << std::endl;
@@ -266,7 +307,12 @@ void EmployeeView::sendReadReceipt()
 {
     int notificationId;
     std::cout << "Enter notification id: ";
-    std::cin >> notificationId;
+    while (!(std::cin >> notificationId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid notification id: ";
+    }
 
     bool success = employeeController.sendReadReceipt(notificationId);
     if (success)

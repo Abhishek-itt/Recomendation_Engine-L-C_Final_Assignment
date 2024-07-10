@@ -3,14 +3,12 @@
 #include <string>
 
 #include "Controller/UserController.h"
-
 #include "Utils/RequestTypes.h"
-
 #include "Utils/Serializer.h"
 
 class UserView {
+private:
     UserController userController;
-    Utils utils;
 
 public:
     void userLandingPage();

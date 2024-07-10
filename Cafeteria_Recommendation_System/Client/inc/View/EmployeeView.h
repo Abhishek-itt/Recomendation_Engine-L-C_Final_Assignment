@@ -3,8 +3,7 @@
 #include <string>
 
 #include "Controller/EmployeeController.h"
-
-#include "Utils/Serializer.h"   
+#include "Utils/Serializer.h"
 #include "Utils/RequestTypes.h"
 
 class EmployeeView {
@@ -18,7 +17,7 @@ public:
     void viewFoodFeedback();
     void viewRolloutMenu();
     void voteOnRolloutMenu();
-    void veiwMealMenu();
+    void viewMealMenu();
     void logout();
 
 private:

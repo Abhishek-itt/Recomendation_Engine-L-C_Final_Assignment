@@ -10,24 +10,24 @@ int main() {
     while(true)
     {
     server.acceptConnection();
-    std::cout << "conn success" <<std::endl;
-        while(true)
-        {
-            std::string request = server.receiveMessage();
-            std::cout << "Request: " << request << std::endl;
-            if (request == "exit") {
-                break;
+        std::thread serverThread([&]() {
+            while (true) {
+                std::string request = server.receiveMessage();
+                std::cout << "Request: " << request << std::endl;
+                if (request == "exit") {
+                    break;
+                }
+                if (request == "") {
+                    break;
+                }
+                ClientRequestHandler handler;
+                std::string response = handler.HandleRequest(request);
+                server.sendMessage(response);
+                std::cout << "Response: " << response << std::endl;
             }
-            if(request == "")
-            {
-                break;
-            }
-            ClientRequestHandler handler;
-            std::string response = handler.HandleRequest(request);
-            server.sendMessage(response);
-            std::cout << "Response: " << response << std::endl;
+        });
 
-        }
+        serverThread.detach();
     }
     return 0;
 }

@@ -6,34 +6,32 @@ void AdminView::adminLandingPage()
     while (true)
     {
         std::cout << "Admin Home" << std::endl;
-        std::cout << "2. Add Food Item" << std::endl;
-        std::cout << "3. Remove Food Item" << std::endl;
-        std::cout << "5. View All Food Items" << std::endl;
-        std::cout << "1. Add User" << std::endl;
-        std::cout << "8. Logout" << std::endl;
+        std::cout << "1. Add Food Item" << std::endl;
+        std::cout << "2. Remove Food Item" << std::endl;
+        std::cout << "3. View All Food Items" << std::endl;
+        std::cout << "4. Add User" << std::endl;
+        std::cout << "5. Logout" << std::endl;
         std::cout << "Enter your choice: ";
 
-        RequestType requestType;
         int choice;
         std::cout << "Enter choice: ";
         std::cin >> choice;
-        requestType = static_cast<RequestType>(choice);
 
-        switch (requestType)
+        switch (choice)
         {
-        case RequestType::ADD_FOOD_ITEM:
+        case 1:
             this->addFoodItem();
             break;
-        case RequestType::DELETE_FOOD_ITEM:
+        case 2:
             this->removeFoodItem();
             break;
-        case RequestType::GET_FOOD_ITEMS:
+        case 3:
             this->viewAllFoodItems();
             break;
-        case RequestType::ADD_USER:
+        case 4:
             this->addUser();
             break;
-        case RequestType::LOGOUT:
+        case 5:
             this->logout();
             exit(0);
             break;

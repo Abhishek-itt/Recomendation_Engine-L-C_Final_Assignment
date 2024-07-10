@@ -44,7 +44,7 @@ void EmployeeView::employeeLandingPage()
             voteOnRolloutMenu();
             break;
         case 7:
-            veiwMealMenu();
+            viewMealMenu();
             break;
         case 8:
             logout();
@@ -177,7 +177,7 @@ void EmployeeView::voteOnRolloutMenu()
     }
 }
 
-void EmployeeView::veiwMealMenu()
+void EmployeeView::viewMealMenu()
 {
     std::string date;
     std::string mealType;

@@ -5,43 +5,41 @@ void ChefView::chefLandingPage()
     while (true)
     {
         std::cout << "Chef Home" << std::endl;
-        std::cout << "5. View All Food Items" << std::endl;
-        std::cout << "6. View Food Item" << std::endl;
-        std::cout << "8. get recommended list." << std::endl;    
-        std::cout << "9. Rollout Meal Menu" << std::endl;
-        std::cout << "13. View Votes on Rollout" << std::endl;
-        std::cout << "14. Rollout Meal" << std::endl;
-        std::cout << "16. Logout" << std::endl;
+        std::cout << "1. View All Food Items" << std::endl;
+        std::cout << "2. View Food Item" << std::endl;
+        std::cout << "3. get recommended list." << std::endl;    
+        std::cout << "4. Rollout Meal Menu" << std::endl;
+        std::cout << "5. View Votes on Rollout" << std::endl;
+        std::cout << "6. Rollout Meal" << std::endl;
+        std::cout << "7. Logout" << std::endl;
 
         std::cout << "Enter your choice: ";
 
-        RequestType requestType;
         int choice;
         std::cout << "Enter choice: ";
         std::cin >> choice;
-        requestType = static_cast<RequestType>(choice);
 
-        switch (requestType)
+        switch (choice)
         {
-        case RequestType::GET_FOOD_ITEMS:
+        case 1:
             this->viewAllFoodItems();
             break;
-        case RequestType::GET_FOOD_ITEM:
+        case 2:
             this->viewFoodItem();
             break;
-        case RequestType::GET_RECOMMENDATION_LIST:
+        case 3:
             this->getRecommendedList();
             break;
-        case RequestType::ROLLOUT_MEAL_MENU:
+        case 4:
             this->rolloutMealMenu();
             break;
-        case RequestType::GET_VOTES_ON_ROLLOUT:
+        case 5:
             this->viewVotesOnRollout();
             break;
-        case RequestType::ROLLOUT_MEAL:
+        case 6:
             this->rolloutMeal();
             break;
-        case RequestType::LOGOUT:
+        case 7:
             this->logout();
             break;
         default:

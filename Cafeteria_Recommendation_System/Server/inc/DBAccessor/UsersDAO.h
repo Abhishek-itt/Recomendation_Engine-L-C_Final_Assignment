@@ -5,6 +5,7 @@
 
 #include "DBAccessor/MySQL/MySqlDBAccess.h"
 #include "DTO/UserDTO.h"
+#include "DTO/userPreferenceDTO.h"
 
 
 class UsersDAO {
@@ -15,5 +16,9 @@ public:
     bool addUser(UserDTO user);
     bool updateUser(UserDTO user);
     bool deleteUser(std::string userName);
+
+    bool updatePreference(std::string userName, UserPreferenceDTO userPreference);
+
+    UserPreferenceDTO getPreference(std::string userName);
 };
 

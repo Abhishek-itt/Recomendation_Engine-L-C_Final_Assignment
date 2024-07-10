@@ -9,6 +9,11 @@ public:
     bool is_available;
     std::string description;
 
+    std::string food_type;
+    std::string spice_level;
+    std::string cuisine;
+    std::string is_sweet;
+
     void Serializer(std::string input)
     {
         std::string delimiter = "\n";
@@ -31,6 +36,18 @@ public:
             case 4:
                 description = token;
                 break;
+            case 5:
+                food_type = token;
+                break;
+            case 6:
+                spice_level = token;
+                break;
+            case 7:
+                cuisine = token;
+                break;
+            case 8:
+                is_sweet = token;
+                break;
             default:
                 break;
             }
@@ -41,6 +58,6 @@ public:
 
     std::string Deserializer()
     {
-        return std::to_string(food_id) + "\n" + food_name + "\n" + std::to_string(price) + "\n" + std::to_string(is_available) + "\n" + description + "\n";
+        return std::to_string(food_id) + "\n" + food_name + "\n" + std::to_string(price) + "\n" + std::to_string(is_available) + "\n" + description + "\n" + food_type + "\n" + spice_level + "\n" + cuisine + "\n" + is_sweet + "\n";
     }
 };

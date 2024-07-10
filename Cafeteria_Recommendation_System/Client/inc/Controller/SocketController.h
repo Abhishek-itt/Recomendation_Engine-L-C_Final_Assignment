@@ -8,7 +8,8 @@
 #define IP_ADDRESS "127.0.0.1"
 #define PORT 8080
 
-class ClientSocketController {
+class ClientSocketController
+{
 public:
     ClientSocketController();
     ~ClientSocketController();
@@ -18,10 +19,9 @@ public:
 private:
     int clientSocket;
     struct sockaddr_in serverAddress;
-    const char* ipAddress;
+    const char *ipAddress;
     int port;
 
     void createSocket();
     void connectToServer();
-    
 };

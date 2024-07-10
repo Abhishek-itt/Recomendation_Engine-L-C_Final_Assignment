@@ -37,3 +37,25 @@ bool UsersDAO::deleteUser(std::string userName) {
     std::string query = "DELETE FROM Users WHERE user_name = '" + userName + "'";
     return mySqlDBAccess.executeUpdate(query);
 }
+
+bool UsersDAO::updatePreference(std::string userName, UserPreferenceDTO userPreference) {
+    std::string query = "UPDATE Users SET food_type_preference = '" + userPreference.food_type_preference + "', spice_level_preference = '" + userPreference.spice_level_preference + "',cuisine_preference = '" + userPreference.cuisine_preference + "',prefer_sweet = '" + userPreference.prefer_sweet + "' WHERE user_name = '" + userName + "'";
+
+    return mySqlDBAccess.executeUpdate(query);
+}
+
+UserPreferenceDTO UsersDAO::getPreference(std::string userName) {
+    UserPreferenceDTO userPreference;
+    std::string query = "SELECT food_type_preference, spice_level_preference, cuisine_preference, prefer_sweet FROM Users WHERE user_name = '" + userName + "'";
+
+    std::cout << query << std::endl;
+    std::vector<std::vector<std::string>> data = mySqlDBAccess.fetchData(query);
+    if (data.size() == 0) {
+        return userPreference;
+    }
+    userPreference.food_type_preference = data[0][0];
+    userPreference.spice_level_preference = data[0][1];
+    userPreference.cuisine_preference = data[0][2];
+    userPreference.prefer_sweet = data[0][3];
+    return userPreference;
+}

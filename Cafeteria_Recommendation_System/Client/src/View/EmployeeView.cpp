@@ -17,7 +17,11 @@ void EmployeeView::employeeLandingPage()
         std::cout << "5. Get Rollout Menu" << std::endl;
         std::cout << "6. Vote on Rollout Menu" << std::endl;
         std::cout << "7. View Meal Menu" << std::endl;
-        std::cout << "8. Logout" << std::endl;
+        std::cout << "8. View Diet Preferences" << std::endl;
+        std::cout << "9. Update Diet Preferences" << std::endl;
+        std::cout << "10. Get Notifications" << std::endl;
+        std::cout << "11. Send Read Receipt" << std::endl;
+        std::cout << "12. Logout" << std::endl;
 
         int choice;
         std::cout << "Enter choice: ";
@@ -47,6 +51,18 @@ void EmployeeView::employeeLandingPage()
             viewMealMenu();
             break;
         case 8:
+            viewDietPreference();
+            break;
+        case 9:
+            updateDietPreference();
+            break;
+        case 10:
+            getNotifications();
+            break;
+        case 11:
+            sendReadReceipt();
+            break;
+        case 12:
             logout();
             exit(0);
             break;
@@ -192,6 +208,75 @@ void EmployeeView::viewMealMenu()
     std::vector<std::string> foodItemData = utils.wordDeserializer(foodDetails);
 
     std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
+}
+
+void EmployeeView::viewDietPreference()
+{
+    std::string response = employeeController.getDietPreference(username);
+    std::vector<std::string> dietPreferenceData = utils.wordDeserializer(response);
+
+    std::cout << "Food Type Preference: " << dietPreferenceData[0] << std::endl;
+    std::cout << "Spice Level Preference: " << dietPreferenceData[1] << std::endl;
+    std::cout << "Cuisine Preference: " << dietPreferenceData[2] << std::endl;
+    std::cout << "Prefer Sweet: " << dietPreferenceData[3] << std::endl;
+}
+
+void EmployeeView::updateDietPreference()
+{
+    std::string foodTypePreference;
+    std::string spiceLevelPreference;
+    std::string cuisinePreference;
+    std::string preferSweet;
+
+    std::cout << "Enter food type preference: ";
+    std::cin >> foodTypePreference;
+    std::cout << "Enter spice level preference: ";
+    std::cin >> spiceLevelPreference;
+    std::cout << "Enter cuisine preference: ";
+    std::cin >> cuisinePreference;
+    std::cout << "Enter prefer sweet: ";
+    std::cin >> preferSweet;
+
+    bool success = employeeController.updateDietPreference(username, foodTypePreference, spiceLevelPreference, cuisinePreference, preferSweet);
+    if (success)
+    {
+        std::cout << "Diet preference updated successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to update diet preference" << std::endl;
+    }
+}
+
+void EmployeeView::getNotifications()
+{
+    std::string notification = employeeController.getNotifications(username);
+    std::vector<std::string> notifications = utils.lineDeserializer(notification);
+
+    std::cout << "Notification ID\tMessage" << std::endl;
+
+    for (std::string notification : notifications)
+    {
+        std::vector<std::string> notificationData = utils.wordDeserializer(notification);
+        std::cout << notificationData[0] << "\t" << notificationData[1] << std::endl;
+    }
+}
+
+void EmployeeView::sendReadReceipt()
+{
+    int notificationId;
+    std::cout << "Enter notification id: ";
+    std::cin >> notificationId;
+
+    bool success = employeeController.sendReadReceipt(notificationId);
+    if (success)
+    {
+        std::cout << "Read receipt sent successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to send read receipt" << std::endl;
+    }
 }
 
 void EmployeeView::logout()

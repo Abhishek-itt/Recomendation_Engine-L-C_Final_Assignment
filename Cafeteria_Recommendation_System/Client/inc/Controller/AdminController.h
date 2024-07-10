@@ -1,10 +1,10 @@
-#pragma once 
+#pragma once
 #include <string>
 #include <sstream>
 #include <vector>
 
 #include "SocketController.h"
-#include "Utils/Serializer.h" 
+#include "Utils/Serializer.h"
 
 #include "Utils/RequestTypes.h"
 

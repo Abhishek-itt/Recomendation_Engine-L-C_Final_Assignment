@@ -51,6 +51,34 @@ bool EmployeeController::giveResponseOnMealMenu(unsigned int mealMenuId, std::st
     return responseString == "true";
 }
 
+bool EmployeeController::updateDietPreference(std::string userName, std::string food_type_preference, std::string spice_level_preference, std::string cuisine_preference, std::string prefer_sweet) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::UPDATE_DIET_PREFERENCE)) + "\n" + userName + "\n" + food_type_preference + "\n" + spice_level_preference + "\n" + cuisine_preference + "\n" + prefer_sweet + "\n";
+    clientSocketController.sendMessage(requestString);
+    std::string response = clientSocketController.receiveMessage();
+    return response == "success";
+}
+
+std::string EmployeeController::getDietPreference(std::string userName) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::GET_DIET_PREFERENCE)) + "\n" + userName + "\n";
+    clientSocketController.sendMessage(requestString);
+    std::string response = clientSocketController.receiveMessage();
+    return response;
+}
+
+bool EmployeeController::sendReadReceipt(int notificationId) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::SEND_READ_RECEIPT)) + "\n" + std::to_string(notificationId) + "\n";
+    clientSocketController.sendMessage(requestString);
+    std::string response = clientSocketController.receiveMessage();
+    return response == "success";
+}
+
+std::string EmployeeController::getNotifications(std::string userName) {
+    std::string requestString = std::to_string(static_cast<int>(RequestType::GET_NOTIFICATIONS)) + "\n" + userName + "\n";
+    clientSocketController.sendMessage(requestString);
+    std::string response = clientSocketController.receiveMessage();
+    return response;
+}
+
 void EmployeeController::logout() {
     std::string requestString = "";
     clientSocketController.sendMessage(requestString);

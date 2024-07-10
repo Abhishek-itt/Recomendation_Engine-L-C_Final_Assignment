@@ -16,6 +16,7 @@ SRC_FILES = \
 	$(SRC_DIR)/Controller/RolloutController.cpp \
 	$(SRC_DIR)/Controller/UserController.cpp \
 	$(SRC_DIR)/Controller/VotingController.cpp \
+	$(SRC_DIR)/Controller/NotificationController.cpp \
 	$(SRC_DIR)/DBAccessor/FoodFeedbackDAO.cpp \
 	$(SRC_DIR)/DBAccessor/FoodItemDAO.cpp \
 	$(SRC_DIR)/DBAccessor/MealMenuDAO.cpp \
@@ -24,6 +25,7 @@ SRC_FILES = \
 	$(SRC_DIR)/DBAccessor/RolloutMenuDAO.cpp \
 	$(SRC_DIR)/DBAccessor/RolloutVotingDAO.cpp \
 	$(SRC_DIR)/DBAccessor/UsersDAO.cpp \
+	$(SRC_DIR)/DBAccessor/UserNotificationDAO.cpp \
 	$(SRC_DIR)/RecommendationEngine/RecommendationEngine.cpp \
 	$(SRC_DIR)/RequestHandler/ClientRequestHandler.cpp \
 	$(SRC_DIR)/RequestHandler/SocketServer.cpp \

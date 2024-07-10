@@ -18,6 +18,10 @@ public:
     void viewRolloutMenu();
     void voteOnRolloutMenu();
     void viewMealMenu();
+    void viewDietPreference();
+    void updateDietPreference();
+    void getNotifications();
+    void sendReadReceipt();
     void logout();
 
 private:

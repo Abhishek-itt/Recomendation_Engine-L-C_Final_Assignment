@@ -44,21 +44,45 @@ void AdminView::adminLandingPage()
 
 void AdminView::addFoodItem()
 {
-    std::string foodName;
-    int price;
-    int isAvailable;
+    std::string food_name;
+    unsigned int price;
+    bool is_available;
     std::string description;
 
+    std::string food_type;
+    std::string spice_level;
+    std::string cuisine;
+    std::string is_sweet;
+
     std::cout << "Enter food name: ";
-    std::getline(std::cin, foodName);
+    std::cin.ignore();
+    std::getline(std::cin, food_name);
+
     std::cout << "Enter price: ";
     std::cin >> price;
-    std::cout << "Enter availability: ";
-    std::cin >> isAvailable;
+
+    std::cout << "Enter availability (1 for available, 0 for not available): ";
+    int availability;
+    std::cin >> availability;
+    is_available = (availability == 1);
+
     std::cout << "Enter description: ";
+    std::cin.ignore();
     std::getline(std::cin, description);
 
-    std::vector<std::string> foodItemData = {foodName, std::to_string(price), std::to_string(isAvailable), description};
+    std::cout << "Enter food type: ";
+    std::getline(std::cin, food_type);
+
+    std::cout << "Enter spice level: ";
+    std::getline(std::cin, spice_level);
+
+    std::cout << "Enter cuisine: ";
+    std::getline(std::cin, cuisine);
+
+    std::cout << "Enter sweetness (yes/no): ";
+    std::getline(std::cin, is_sweet);
+
+    std::vector<std::string> foodItemData = {std::to_string(0), food_name, std::to_string(price), (is_available ? "1" : "0"), description, food_type, spice_level, cuisine, is_sweet};
     if (this->adminController.addFoodItem(foodItemData))
     {
         std::cout << "Food item added successfully" << std::endl;

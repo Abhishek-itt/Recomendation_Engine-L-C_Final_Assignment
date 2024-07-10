@@ -5,6 +5,7 @@
 #include "Controller/RolloutController.h"
 #include "Controller/VotingController.h"
 #include "Controller/MealMenuController.h"
+#include "Controller/NotificationController.h"
 
 #include "Utils/RequestTypes.h"
 
@@ -15,6 +16,7 @@ std::string ClientRequestHandler::HandleRequest(std::string requestBuffer) {
     RolloutController rolloutController;
     VotingController votingController;
     MealMenuController mealMenuController;
+    NotificationController notificationController;
 
     RequestType requestType;
 
@@ -99,6 +101,27 @@ std::string ClientRequestHandler::HandleRequest(std::string requestBuffer) {
         case RequestType::GET_MEAL_MENU:
             bufferMessages = serializer.split(bufferMessage);
             return mealMenuController.getMealMenu(bufferMessages[0], bufferMessages[1]);
+        
+        case RequestType::GET_DIET_PREFERENCE:
+            bufferMessages = serializer.split(bufferMessage);
+            return serializer.serialize(userController.getUserDietPreference(bufferMessages[0]));
+
+        case RequestType::UPDATE_DIET_PREFERENCE:
+            bufferMessages = serializer.split(bufferMessage);
+            if (userController.updateUserDietPreference(bufferMessages[0], bufferMessages[1], bufferMessages[2], bufferMessages[3], bufferMessages[4]))
+                return "success";
+            else
+                return "failed";
+
+        case RequestType::GET_NOTIFICATIONS:
+            bufferMessages = serializer.split(bufferMessage);
+            return serializer.serialize(notificationController.getNotifications(bufferMessages[0]));
+
+        case RequestType::SEND_READ_RECEIPT:
+            if (notificationController.setReadReceipt(std::stoi(bufferMessage)))
+                return "success";
+            else
+                return "failed";
 
         case RequestType::GET_VOTES_ON_ROLLOUT:
             bufferMessages = serializer.split(bufferMessage);

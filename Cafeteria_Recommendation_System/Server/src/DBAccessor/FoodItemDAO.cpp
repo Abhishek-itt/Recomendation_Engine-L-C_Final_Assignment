@@ -2,7 +2,8 @@
 
 bool FoodItemDAO::addFoodItem(FoodItemDTO foodItemDTO)
 {
-    std::string query = "INSERT INTO Food_Items (food_name, price, is_available, description) VALUES ('" + foodItemDTO.food_name + "', " + std::to_string(foodItemDTO.price) + ", " + std::to_string(foodItemDTO.is_available) + ", '" + foodItemDTO.description + "')";
+    std::string query = "INSERT INTO Food_Items (food_name, price, is_available, description, food_type, spice_level, cuisine, is_sweet) VALUES ('" + foodItemDTO.food_name + "', " + std::to_string(foodItemDTO.price) + ", " + std::to_string(foodItemDTO.is_available) + ", '" + foodItemDTO.description + "', '" + foodItemDTO.food_type + "', '" + foodItemDTO.spice_level + "', '" + foodItemDTO.cuisine + "', '" + foodItemDTO.is_sweet + "')";
+    std::cout << query << std::endl;
     return mySqlDBAccess.executeUpdate(query);
 }
 
@@ -34,6 +35,10 @@ FoodItemDTO FoodItemDAO::getFoodItem(unsigned int foodItemId)
     foodItem.price = std::stoi(data[0][2]);
     foodItem.is_available = std::stoi(data[0][3]);
     foodItem.description = data[0][4];
+    foodItem.food_type = data[0][5];
+    foodItem.spice_level = data[0][6];
+    foodItem.cuisine = data[0][7];
+    foodItem.is_sweet = data[0][8];
     return foodItem;
 }
 
@@ -50,6 +55,10 @@ std::vector<FoodItemDTO> FoodItemDAO::getFoodItems()
         foodItem.price = std::stoi(row[2]);
         foodItem.is_available = std::stoi(row[3]);
         foodItem.description = row[4];
+        foodItem.food_type = row[5];
+        foodItem.spice_level = row[6];
+        foodItem.cuisine = row[7];
+        foodItem.is_sweet = row[8];
         foodItems.push_back(foodItem);
     }
     return foodItems;

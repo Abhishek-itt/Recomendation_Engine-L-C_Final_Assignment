@@ -1,4 +1,4 @@
-#include "Controller/CRUDController.h"
+#include "Controller/FoodItemController..h"
 
 bool CRUDController::addFoodItem(std::vector<std::string> foodItemData) {
 
@@ -8,10 +8,15 @@ bool CRUDController::addFoodItem(std::vector<std::string> foodItemData) {
     std::cout << foodItemData[2] << std::endl;
     std::cout << foodItemData[3] << std::endl;
 
-    foodItem.food_name = foodItemData[0];
-    foodItem.price = std::stod(foodItemData[1]);
-    foodItem.is_available =std::stod(foodItemData[2]);
-    foodItem.description = foodItemData[3];
+    foodItem.food_id = std::stoul(foodItemData[0]);
+    foodItem.food_name = foodItemData[1];
+    foodItem.price = std::stoul(foodItemData[2]);
+    foodItem.is_available = std::stoi(foodItemData[3]);
+    foodItem.description = foodItemData[4];
+    foodItem.food_type = foodItemData[5];
+    foodItem.spice_level = foodItemData[6];
+    foodItem.cuisine = foodItemData[7];
+    foodItem.is_sweet = foodItemData[8];
 
     std::cout << "Food Item Name: " << foodItem.food_name << std::endl;
     std::cout << "Food Item Price: " << foodItem.price << std::endl;

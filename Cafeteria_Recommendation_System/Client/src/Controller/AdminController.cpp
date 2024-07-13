@@ -40,4 +40,5 @@ bool AdminController::addUser(std::vector<std::string> userData) {
 void AdminController::logout() {
     std::string requestString = "";
     clientSocketController.sendMessage(requestString);
+    exit(EXIT_SUCCESS);
 }

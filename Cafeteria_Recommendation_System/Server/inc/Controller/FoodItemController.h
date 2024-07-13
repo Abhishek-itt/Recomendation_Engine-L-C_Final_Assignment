@@ -12,7 +12,7 @@
 
 #include "RecommendationEngine/RecommendationEngine.h"
 
-class CRUDController {
+class FoodItemController {
 public:
     bool addFoodItem(std::vector<std::string> foodItemData);
     bool updateFoodItem(FoodItemDTO foodItem);

@@ -10,7 +10,7 @@ OBJ_DIR = obj
 
 # Source files
 SRC_FILES = \
-	$(SRC_DIR)/Controller/CRUDController.cpp \
+	$(SRC_DIR)/Controller/FoodItemController.cpp \
 	$(SRC_DIR)/Controller/MealMenuController.cpp \
 	$(SRC_DIR)/Controller/MealMenuResponseController.cpp \
 	$(SRC_DIR)/Controller/RolloutController.cpp \

@@ -8,14 +8,12 @@ ClientSocketController::ClientSocketController() {
     connectToServer();
 }
 
-// Destructor
 ClientSocketController::~ClientSocketController() {
     if (clientSocket != -1) {
         close(clientSocket);
     }
 }
 
-// Create socket
 void ClientSocketController::createSocket() {
     clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (clientSocket == -1) {
@@ -29,20 +27,17 @@ void ClientSocketController::createSocket() {
     }
 }
 
-// Connect to server
 void ClientSocketController::connectToServer() {
     if (connect(clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) < 0) {
         throw std::runtime_error("Connection failed");
     }
 }
 
-// Send message
 void ClientSocketController::sendMessage(std::string message) {
     std::cout << "Sending message: " << message << std::endl;
     send(clientSocket, message.c_str(), message.size(), 0);
 }
 
-// Receive message
 std::string ClientSocketController::receiveMessage() {
     char buffer[1024] = {0};
     recv(clientSocket, buffer, 1024, 0);

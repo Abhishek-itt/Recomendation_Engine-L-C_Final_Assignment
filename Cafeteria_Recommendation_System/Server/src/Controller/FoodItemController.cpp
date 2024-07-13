@@ -1,6 +1,6 @@
-#include "Controller/FoodItemController..h"
+#include "Controller/FoodItemController.h"
 
-bool CRUDController::addFoodItem(std::vector<std::string> foodItemData) {
+bool FoodItemController::addFoodItem(std::vector<std::string> foodItemData) {
 
     FoodItemDTO foodItem;
     std::cout << foodItemData[0] << std::endl;
@@ -26,21 +26,21 @@ bool CRUDController::addFoodItem(std::vector<std::string> foodItemData) {
     return foodItemDAO.addFoodItem(foodItem);
 }
 
-bool CRUDController::updateFoodItem(FoodItemDTO foodItem) {
+bool FoodItemController::updateFoodItem(FoodItemDTO foodItem) {
     return foodItemDAO.updateFoodItem(foodItem);
 }
 
-bool CRUDController::deleteFoodItem(int foodItemId) {
+bool FoodItemController::deleteFoodItem(int foodItemId) {
     return foodItemDAO.removeFoodItem(foodItemId);
 }
 
-std::string CRUDController::getFoodItem(int foodItemId) {
+std::string FoodItemController::getFoodItem(int foodItemId) {
     FoodItemDTO foodItemDTO = foodItemDAO.getFoodItem(foodItemId);
     std::cout << foodItemDTO.Deserializer();
     return foodItemDTO.Deserializer();
 }
 
-std::vector<std::string> CRUDController::getFoodItems() {
+std::vector<std::string> FoodItemController::getFoodItems() {
     std::vector<std::string> foodItems;
     for (FoodItemDTO foodItem : foodItemDAO.getFoodItems())
     {
@@ -54,7 +54,7 @@ std::vector<std::string> CRUDController::getFoodItems() {
     return foodItems;
 }
 
-bool CRUDController::addFoodFeedback(std::vector<std::string> foodFeedbackData) {
+bool FoodItemController::addFoodFeedback(std::vector<std::string> foodFeedbackData) {
     FoodFeedbackDTO foodFeedback;
     foodFeedback.food_id = std::stoi(foodFeedbackData[0]);
     foodFeedback.user_name = foodFeedbackData[1];
@@ -65,7 +65,7 @@ bool CRUDController::addFoodFeedback(std::vector<std::string> foodFeedbackData) 
     return foodFeedbackDAO.addFoodFeedback(foodFeedback);
 }
 
-std::vector<std::string> CRUDController::getFoodFeedbacks(int foodId)
+std::vector<std::string> FoodItemController::getFoodFeedbacks(int foodId)
 {
     std::vector<std::string> foodFeedbacks;
 
@@ -83,7 +83,7 @@ std::vector<std::string> CRUDController::getFoodFeedbacks(int foodId)
     return foodFeedbacks;
 } 
 
-std::vector<std::string> CRUDController::getRecommendationList(int count) {
+std::vector<std::string> FoodItemController::getRecommendationList(int count) {
     std::vector<std::string> recommendationList;
     for (FoodItemDTO foodItem : recommendationEngine.getRecommendedFoodItems(count))
     {

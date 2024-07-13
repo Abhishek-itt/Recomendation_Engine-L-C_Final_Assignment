@@ -46,4 +46,5 @@ std::string ChefController::getVotesOnRollout(std::string date, std::string meal
 void ChefController::logout() {
     std::string requestString = "";
     clientSocketController.sendMessage(requestString);
+    exit(EXIT_SUCCESS);
 }

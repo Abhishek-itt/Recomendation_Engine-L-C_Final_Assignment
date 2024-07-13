@@ -19,7 +19,9 @@ std::string EmployeeController::getRolloutMenu(std::string date, std::string mea
     std::string requestString = std::to_string(static_cast<int>(RequestType::GET_ROLLOUT_MEAL_MENU)) + "\n" + date + "\n" + mealType + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
-    std::cout << "rollout response: " << response << std::endl;
+    if (response == "NULL") {
+        return "0";
+    }
     return response;
 }
 
@@ -27,6 +29,9 @@ unsigned int EmployeeController::getFoodId(unsigned int rolloutId) {
     std::string requestString = std::to_string(static_cast<int>(RequestType::GET_FOOD_ID_FOR_ROLLOUT)) + "\n" + std::to_string(rolloutId) + "\n";
     clientSocketController.sendMessage(requestString);
     std::string response = clientSocketController.receiveMessage();
+    if (response == "NULL") {
+        return 0;
+    }
     return std::stoi(response);
 }
 
@@ -82,6 +87,7 @@ std::string EmployeeController::getNotifications(std::string userName) {
 void EmployeeController::logout() {
     std::string requestString = "";
     clientSocketController.sendMessage(requestString);
+    exit(EXIT_SUCCESS);
 }
 
 bool EmployeeController::giveFeedback(unsigned int foodId, std::string username, unsigned int tasteRating, unsigned int qualityRating, std::string review) {

@@ -10,4 +10,3 @@ std::string UserController::userLogin(std::string username, std::string employee
 
     return response;
 }
-

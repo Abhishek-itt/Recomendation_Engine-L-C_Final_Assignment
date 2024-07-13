@@ -1,0 +1,205 @@
+#include "View/AdminView.h"
+#include "Utils/RequestTypes.h"
+#include <limits>
+
+void AdminView::adminLandingPage()
+{
+    while (true)
+    {
+        std::cout << "Admin Home" << std::endl;
+        std::cout << "1. Add Food Item" << std::endl;
+        std::cout << "2. Remove Food Item" << std::endl;
+        std::cout << "3. View All Food Items" << std::endl;
+        std::cout << "4. Add User" << std::endl;
+        std::cout << "5. Logout" << std::endl;
+        std::cout << "Enter your choice: ";
+
+        int choice;
+        std::cin >> choice;
+
+        if (std::cin.fail() || choice < 1 || choice > 5)
+        {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid choice. Please enter a number between 1 and 5." << std::endl;
+            continue;
+        }
+
+        switch (choice)
+        {
+        case 1:
+            this->addFoodItem();
+            break;
+        case 2:
+            this->removeFoodItem();
+            break;
+        case 3:
+            this->viewAllFoodItems();
+            break;
+        case 4:
+            this->addUser();
+            break;
+        case 5:
+            this->logout();
+            exit(0);
+            break;
+        }
+    }
+}
+
+void AdminView::addFoodItem()
+{
+    std::string food_name;
+    unsigned int price;
+    bool is_available;
+    std::string description;
+
+    std::string food_type;
+    std::string spice_level;
+    std::string cuisine;
+    std::string is_sweet;
+
+    std::cout << "Enter food name: ";
+    std::cin.ignore();
+    std::getline(std::cin, food_name);
+
+    std::cout << "Enter price: ";
+    while (!(std::cin >> price))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid price: ";
+    }
+
+    std::cout << "Enter availability (1 for available, 0 for not available): ";
+    int availability;
+    while (!(std::cin >> availability) || (availability != 1 && availability != 0))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter 1 for available or 0 for not available: ";
+    }
+    is_available = (availability == 1);
+
+    std::cout << "Enter description: ";
+    std::cin.ignore();
+    std::getline(std::cin, description);
+
+    std::cout << "Enter food type: ";
+    std::getline(std::cin, food_type);
+
+    std::cout << "Enter spice level: ";
+    std::getline(std::cin, spice_level);
+
+    std::cout << "Enter cuisine: ";
+    std::getline(std::cin, cuisine);
+
+    std::cout << "Enter sweetness (yes/no): ";
+    std::getline(std::cin, is_sweet);
+
+    std::vector<std::string> foodItemData = {std::to_string(0), food_name, std::to_string(price), (is_available ? "1" : "0"), description, food_type, spice_level, cuisine, is_sweet};
+    if (this->adminController.addFoodItem(foodItemData))
+    {
+        std::cout << "Food item added successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to add food item" << std::endl;
+    }
+}
+
+void AdminView::removeFoodItem()
+{
+    int foodId;
+    this->viewAllFoodItems();
+    std::cout << "Enter food id to be removed: ";
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food id: ";
+    }
+
+    if (this->adminController.removeFoodItem(foodId))
+    {
+        std::cout << "Food item removed successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to remove food item" << std::endl;
+    }
+}
+
+void AdminView::viewAllFoodItems()
+{
+    std::string foodItems = this->adminController.getFoodItemList();
+
+    std::vector<std::string> foodItemsData = utils.lineDeserializer(foodItems);
+    // Print table header
+    std::cout << "Food Id\tFood Name\tPrice\tAvailability\tDescription" << std::endl;
+
+    // Print table rows
+    for (const std::string& foodItem : foodItemsData)
+    {
+        std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
+        std::cout << foodItemData[0] << "\t" << foodItemData[1] << "\t" << foodItemData[2] << "\t" << foodItemData[3] << "\t" << foodItemData[4] << std::endl;
+    }
+}
+
+void AdminView::viewFoodItem()
+{
+    unsigned int foodId;
+    std::cout << "Enter food id: ";
+    while (!(std::cin >> foodId))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a valid food id: ";
+    }
+    std::string foodItem = this->adminController.getFoodItem(foodId);
+    std::vector<std::string> foodItemData = utils.wordDeserializer(foodItem);
+
+    std::cout << "Food Id: " << foodItemData[0] << std::endl;
+    std::cout << "Food Name: " << foodItemData[1] << std::endl;
+    std::cout << "Price: " << foodItemData[2] << std::endl;
+    std::cout << "Availability: " << foodItemData[3] << std::endl;
+    std::cout << "Description: " << foodItemData[4] << std::endl;
+}
+
+void AdminView::addUser()
+{
+    std::cin.ignore();
+    std::cin.clear();
+    std::string firstName;
+    std::string lastName;
+    std::string username;
+    std::string role;
+    std::string employeeId;
+
+    std::cout << "Enter first Name: ";
+    std::getline(std::cin, firstName);
+    std::cout << "Enter last Name: ";
+    std::getline(std::cin, lastName);
+    std::cout << "Enter username: ";
+    std::getline(std::cin, username);
+    std::cout << "Enter role: ";
+    std::getline(std::cin, role);
+    std::cout << "Enter employee id: ";
+    std::getline(std::cin, employeeId);
+
+    std::vector<std::string> userData = {username, role, employeeId, firstName, lastName};
+    if (this->adminController.addUser(userData))
+    {
+        std::cout << "User added successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "Failed to add user" << std::endl;
+    }
+}
+
+void AdminView::logout()
+{
+    std::cout << "Logging out" << std::endl;
+    this->adminController.logout();
+}
